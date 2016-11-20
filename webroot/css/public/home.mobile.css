@@ -1,0 +1,55 @@
+@media (max-width: 768px) {
+    body {
+        font-size: 12px;
+    }
+    #home {
+        position: static;
+        margin: 0;
+        padding: 0;
+        background: url(../../img/bg.jpg) no-repeat center fixed;
+        -webkit-background-size: cover;
+        background-size: cover;
+        font-family: Panama, sans-serif;
+    }
+
+    #home #container {
+        position: static;
+        text-align: center;
+        transform: none;
+    }
+
+    .header h1 {
+        font-size: 40px;
+    }
+
+    .header h2 {
+        font-size: 20px;
+    }
+
+    .countdown {
+        width: inherit;
+    }
+
+    .logo {
+        width: 150px;
+        height: 150px;
+    }
+
+    .logo-sm {
+        width: 100px;
+        height: 100px;
+    }
+
+    .countdown-square {
+        padding: 10px 0;
+    }
+    .countdown-value {
+        font-size: 35px;
+        line-height: 35px;
+    }
+
+    .countdown-label {
+        font-size: 10px;
+        line-height: 10px;
+    }
+}

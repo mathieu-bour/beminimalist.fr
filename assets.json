@@ -10,7 +10,8 @@
       "/css/public/header.css",
       "/css/public/footer.css",
       "/css/public/countdown.css",
-      "/css/public/logo.css"
+      "/css/public/logo.css",
+      "/css/public/home.mobile.css"
     ],
     "css_replace": {
       "../fonts/glyphicons-halflings-regular": "../fonts/glyphicons-halflings-regular/glyphicons-halflings-regular",
