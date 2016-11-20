@@ -1,4 +1,4 @@
-prood:
+prod:
     scheme: sftp
     host: web00.point-blank.fr
     port: 22
