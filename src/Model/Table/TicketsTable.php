@@ -36,7 +36,18 @@ class TicketsTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
+        // Relations
+        $this->belongsTo('Users', [
+            'className' => 'Users',
+            'foreignKey' => 'user_code',
+            'propertyName' => 'code'
+        ]);
+
+        // Behaviors
         $this->addBehavior('Timestamp');
+        $this->addBehavior('CounterCache', [
+            'Users' => ['ticket_count']
+        ]);
     }
 
     /**

@@ -33,6 +33,11 @@ class UsersTable extends Table
         $this->table('users');
         $this->displayField('id');
         $this->primaryKey('id');
+
+        $this->hasMany('Comments', [
+            'foreignKey' => 'user_code',
+            'dependent' => true,
+        ]);
     }
 
     /**
