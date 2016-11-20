@@ -1,14 +1,15 @@
 @media (max-width: 768px) {
     body {
         font-size: 12px;
+        background: url(../../img/bg.jpg) no-repeat center fixed;
+        -webkit-background-size: cover;
+        background-size: cover;
     }
     #home {
         position: static;
         margin: 0;
         padding: 0;
-        background: url(../../img/bg.jpg) no-repeat center fixed;
-        -webkit-background-size: cover;
-        background-size: cover;
+        background: none;
         font-family: Panama, sans-serif;
     }
 
