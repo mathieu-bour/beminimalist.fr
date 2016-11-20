@@ -1,5 +1,7 @@
 <?php
 namespace App\Controller;
+use Cake\Core\Configure;
+use Cake\I18n\Time;
 
 /**
  * Tickets Controller
@@ -14,6 +16,11 @@ class TicketsController extends AppController
      */
     public function book()
     {
+        // Prevent user to enter before opening date
+        if(new Time() < Configure::read('opening')) {
+            $this->redirect('/');
+        }
+
         $ticket = $this->Tickets->newEntity();
 
         if ($this->request->is('post')) {

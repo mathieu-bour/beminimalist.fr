@@ -224,3 +224,5 @@ if (Configure::read('debug')) {
 
 Plugin::load('Migrations');
 Plugin::load('Bootstrap');
+
+Configure::write('opening', new \Cake\I18n\FrozenTime('2016-11-30 19:00:00'));
