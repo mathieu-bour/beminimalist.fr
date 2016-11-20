@@ -1,0 +1,32 @@
+{
+  "public": {
+    "css": [
+      "/plugins/bootstrap/dist/css/bootstrap.css",
+      "/plugins/font-awesome/css/font-awesome.css",
+      "/css/common/fonts.css",
+      "/css/common/bootstrap-theme.css",
+      "/css/public/general.css",
+      "/css/public/home.css",
+      "/css/public/header.css",
+      "/css/public/footer.css",
+      "/css/public/countdown.css",
+      "/css/public/logo.css"
+    ],
+    "css_replace": {
+      "../fonts/glyphicons-halflings-regular": "../fonts/glyphicons-halflings-regular/glyphicons-halflings-regular",
+      "../fonts/fontawesome-webfont": "../fonts/font-awesome/fontawesome-webfont",
+      "../../fonts/panama-light/panama-light": "../fonts/panama-light/panama-light"
+    },
+    "js": [
+      "/plugins/jquery/dist/jquery.js",
+      "/plugins/bootstrap/dist/js/bootstrap.js",
+      "/plugins/moment/moment.js",
+      "/plugins/countdownjs/countdown.js",
+      "/js/common/moment-countdown.js",
+      "/js/public/main.js"
+    ],
+    "fonts": {
+      "/plugins/font-awesome/fonts/fontawesome-webfont.{ttf,woff,woff2,eot,svg}": "/fonts/font-awesome/"
+    }
+  }
+}

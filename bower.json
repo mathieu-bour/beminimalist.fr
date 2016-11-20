@@ -1,0 +1,25 @@
+{
+  "name": "beminimalist",
+  "description": "Official beminimalist.fr website",
+  "main": "index.php",
+  "authors": [
+    "Mathieu Bour"
+  ],
+  "license": "proprietary",
+  "homepage": "https://beminimalist.fr",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "webroot/plugins",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "font-awesome": "fontawesome#^4.6.3",
+    "moment": "^2.16.0",
+    "countdownjs": "^2.6.0"
+  }
+}

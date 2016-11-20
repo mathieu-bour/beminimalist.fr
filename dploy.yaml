@@ -1,0 +1,11 @@
+prood:
+    scheme: sftp
+    host: web00.point-blank.fr
+    port: 22
+    user: root
+    pass: GjxAwAkCAJkh1odM1p4A
+    check: true
+    exclude: ["webroot/css/public/*", "webroot/js/public/*", "./.*", "bower.json", "gulpfile.js", "package.json", "phpunit.xml.dist", "README.md"]
+    path:
+        local: /
+        remote: /var/www/beminimalist.fr

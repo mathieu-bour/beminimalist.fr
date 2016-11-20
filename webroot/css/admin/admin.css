@@ -1,0 +1,55 @@
+/*!
+ * style.css
+ * @author Mathieu Bour
+ */
+@font-face {
+    font-family: 'Panama';
+    src: url('../../fonts/panama-light/panama-light.woff2') format('woff2'),
+    url('../../fonts/panama-light/panama-light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+body {
+    position: relative;
+}
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+}
+.header h1 {
+    margin: 0;
+    padding: 0 30px;
+    font-family: 'Panama', Helvetica, sans-serif;
+    line-height: 60px;
+}
+
+.sidebar {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    bottom: 0;
+    width: 300px;
+    background-color: #ccc;
+}
+.sidebar ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.sidebar ul li a {
+    display: block;
+    padding: 13px 30px;
+    line-height: 14px;
+}
+
+.content {
+    position: absolute;
+    left: 300px;
+    top: 60px;
+    right: 0;
+    padding: 30px;
+}
