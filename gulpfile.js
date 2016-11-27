@@ -17,7 +17,7 @@ var webroot = './webroot';
 
 /* = Functions
  * =========================================================== */
-var getBanner = function(filename, dir) {
+var getBanner = function (filename, dir) {
     var md5 = md5File.sync(dir + filename);
 
     return [
@@ -33,7 +33,7 @@ var getBanner = function(filename, dir) {
     ].join('\n');
 };
 
-var getFiles = function(mode, type) {
+var getFiles = function (mode, type) {
     var files = [];
     for (var i in assets[mode][type]) {
         var path = assets[mode][type][i];
@@ -45,10 +45,10 @@ var getFiles = function(mode, type) {
 /* = Tasks
  * =========================================================== */
 // Move fonts
-gulp.task('fonts', function() {
+gulp.task('fonts', function () {
     var publicFonts = assets['public']['fonts'];
 
-    for(var src in publicFonts) {
+    for (var src in publicFonts) {
         gulp.src(webroot + src).pipe(gulp.dest(webroot + publicFonts[src]))
     }
 });
@@ -62,32 +62,71 @@ gulp.task('css_public_content', function () {
             compatibility: 'ie8'
         }));
 
-    for(var searchStr in assets['public']['css_replace']) {
+    for (var searchStr in assets['public']['css_replace']) {
         var replaceStr = assets['public']['css_replace'][searchStr];
         piped = piped.pipe(replace(searchStr, replaceStr));
     }
     return piped.pipe(gulp.dest(webroot + '/css/'));
 });
-gulp.task('css_public', ['css_public_content'], function() {
+gulp.task('css_public', ['css_public_content'], function () {
     return gulp.src('webroot/css/public.css')
         .pipe(header(getBanner('public.css', webroot + '/css/')))
         .pipe(gulp.dest(webroot + '/css/'));
 });
 
 // Create public.js
-gulp.task('js_public_content', function() {
+gulp.task('js_public_content', function () {
     return gulp.src(getFiles('public', 'js'))
         .pipe(concat('public.js'))
         .pipe(uglify())
         .pipe(gulp.dest(webroot + '/js/'))
 });
-gulp.task('js_public', ['js_public_content'], function() {
+gulp.task('js_public', ['js_public_content'], function () {
     return gulp.src(webroot + '/js/public.js')
         .pipe(header(getBanner('public.js', webroot + '/js/')))
         .pipe(gulp.dest(webroot + '/js/'));
 });
 
-gulp.task('watch', function () {
-  gulp.watch('webroot/css/public/*.css', ['css_public']);
-  gulp.watch('webroot/js/public/*.js', ['js_public']);
+// Create admin.css
+gulp.task('css_admin_content', function () {
+    var piped = gulp.src(getFiles('admin', 'css'))
+        .pipe(concat('admin.css'))
+        .pipe(cleanCSS({
+            keepSpecialComments: 0,
+            compatibility: 'ie8'
+        }));
+
+    for (var searchStr in assets['admin']['css_replace']) {
+        var replaceStr = assets['admin']['css_replace'][searchStr];
+        piped = piped.pipe(replace(searchStr, replaceStr));
+    }
+    return piped.pipe(gulp.dest(webroot + '/css/'));
+});
+gulp.task('css_admin', ['css_admin_content'], function () {
+    return gulp.src('webroot/css/admin.css')
+        .pipe(header(getBanner('admin.css', webroot + '/css/')))
+        .pipe(gulp.dest(webroot + '/css/'));
+});
+
+// Create admin.js
+gulp.task('js_admin_content', function () {
+    return gulp.src(getFiles('admin', 'js'))
+        .pipe(concat('admin.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest(webroot + '/js/'))
+});
+gulp.task('js_admin', ['js_admin_content'], function () {
+    return gulp.src(webroot + '/js/admin.js')
+        .pipe(header(getBanner('admin.js', webroot + '/js/')))
+        .pipe(gulp.dest(webroot + '/js/'));
+});
+
+gulp.task('watch', ['css_public', 'js_public', 'css_admin', 'js_admin'], function () {
+    // Public
+    gulp.watch('webroot/css/public/*.css', ['css_public']);
+    gulp.watch('webroot/js/public/*.js', ['js_public']);
+
+    // Admin
+    gulp.watch('webroot/css/admin/*.css', ['css_admin']);
+    gulp.watch('webroot/js/admin/*.js', ['js_admin']);
 });

@@ -21,7 +21,8 @@ class AppController extends \App\Controller\AppController  {
         $counters = [
             'Tickets' => [
                 'all' => $this->Tickets->find('all')->count(),
-                'to_send' => $this->Tickets->find('all')->where(['paid' => 1, 'sent' => 0])->count(),
+                'to_print' => $this->Tickets->find('all')->where(['paid' => 1, 'state' => 'TO_PRINT'])->count(),
+                'packaged' => $this->Tickets->find('all')->where(['paid' => 1, 'state' => 'PACKAGED'])->count(),
             ]
         ];
 

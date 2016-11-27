@@ -7,19 +7,10 @@
 
         <?= $this->Html->meta('icon') ?>
 
-        <?= $this->Html->css([
-            '/plugins/bootstrap/dist/css/bootstrap',
-            '/plugins/font-awesome/css/font-awesome',
-            'admin'
-        ]); ?>
+        <?= $this->Html->css('admin'); ?>
 
         <?= $this->fetch('meta') ?>
         <?= $this->fetch('css') ?>
-
-        <?= $this->Html->script([
-            '/plugins/jquery/dist/jquery',
-            'admin'
-        ]); ?>
     </head>
 
     <body>
@@ -28,8 +19,13 @@
             <?= $this->element('sidebar'); ?>
 
             <div class="content">
-                <?= $this->fetch('content'); ?>
+                <div class="container-fluid">
+                    <?= $this->Flash->render(); ?>
+                    <?= $this->fetch('content'); ?>
+                </div>
             </div>
         </div>
+
+        <?= $this->Html->script('admin'); ?>
     </body>
 </html>

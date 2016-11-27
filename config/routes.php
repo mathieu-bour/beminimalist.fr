@@ -51,6 +51,8 @@ Router::scope('/', function (RouteBuilder $routes) {
 
 Router::prefix('admin', function ($routes) {
     $routes->connect('/', ['controller' => 'Pages', 'action' => 'dashboard']);
+    $routes->connect('/wizard', ['controller' => 'Tickets', 'action' => 'wizard', 'init']);
+    $routes->connect('/wizard/:step', ['controller' => 'Tickets', 'action' => 'wizard'], ['pass' => ['step']]);
     $routes->fallbacks(DashedRoute::class);
 });
 

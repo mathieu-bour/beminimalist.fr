@@ -3,21 +3,30 @@
 <table class="table">
     <thead>
         <tr>
+            <th>Code</th>
             <th>Nom</th>
             <th>Date de naissance</th>
             <th>Adresse e-mail</th>
             <th>Adresse postale</th>
             <th>Type</th>
             <th>Payé</th>
-            <th>Envoyé</th>
+            <th>Status</th>
             <th>Vendeur</th>
-            <th>Actions</th>
         </tr>
     </thead>
 
     <tbody>
+        <?php $states = [
+            'TO_PRINT' => 'À imprimer',
+            'ASSIGNED' => 'Assigné',
+            'PRINTED' => 'Imprimé',
+            'FILLED' => 'Rempli',
+            'PACKAGED' => 'Afranchi',
+            'SENT' => 'Envoyé'
+        ]; ?>
         <?php foreach($tickets as $ticket): ?>
             <tr>
+                <td><?= $ticket->code; ?></td>
                 <td><?= $ticket->firstname . ' ' . $ticket->lastname; ?></td>
                 <td><?= $ticket->birthdate; ?></td>
                 <td><?= $ticket->email; ?></td>
@@ -30,23 +39,13 @@
                         <span class="label label-danger"><i class="fa fa-times"></i></span>
                     <?php endif; ?>
                 </td>
-                <td>
-                    <?php if($ticket->sent): ?>
-                        <span class="label label-success"><i class="fa fa-check"></i></span>
-                    <?php else: ?>
-                        <span class="label label-danger"><i class="fa fa-times"></i></span>
-                    <?php endif; ?>
-                </td>
+                <td><?= $states[$ticket->state]; ?></td>
                 <td>
                     <?php if(!empty($ticket->user)): ?>
                         <?= $ticket->user->firstname . ' ' . $ticket->user->lastname; ?>
                     <?php else: ?>
-                        <span class="label label-danger"><i class="fa fa-times"></i></span>
+                        Aucun
                     <?php endif; ?>
-                </td>
-                <td>
-                    <a href="#" class="btn btn-sm btn-primary" data-id="<?= $ticket->id; ?>"><i class="fa fa-paper-plane"></i></a>
-                    <!--<a href="#" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i></a>-->
                 </td>
             </tr>
         <?php endforeach; ?>

@@ -1,0 +1,34 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+.tickets {
+
+}
+.ticket {
+    position: relative;
+    height: 292px;
+    background: url('../../img/ticket-third.jpg');
+    background-size: cover;
+}
+.qrcode {
+    position: absolute;
+    right: 50px;
+    bottom: 90px;
+    width: 70px;
+}
+.barcode {
+    position: absolute;
+    right: 50px;
+    bottom: 40px;
+    width: 70px;
+}
+.code {
+    position: absolute;
+    right: 50px;
+    bottom: 20px;
+    width: 70px;
+    line-height: 20px;
+    font-size: 6px;
+    text-align: center;
+}

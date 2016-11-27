@@ -11,7 +11,10 @@
     "cakephp/migrations": "~1.0",
     "cakephp/plugin-installer": "*",
     "holt59/cakephp3-bootstrap-helpers": "dev-master",
-    "angelleye/paypal-php-library": "2.0.*"
+    "angelleye/paypal-php-library": "2.0.*",
+    "mikehaertl/phpwkhtmltopdf": "^2.2",
+    "picqer/php-barcode-generator": "^0.2.1",
+    "endroid/qrcode": "^1.7"
   },
   "require-dev": {
     "psy/psysh": "@stable",

@@ -1,7 +1,10 @@
 <?php
 namespace App\Controller;
+
 use Cake\Core\Configure;
 use Cake\I18n\Time;
+use HTML2PDF;
+use mikehaertl\wkhtmlto\Pdf;
 
 /**
  * Tickets Controller
@@ -18,7 +21,7 @@ class TicketsController extends AppController
     public function book()
     {
         // Prevent user to enter before opening date
-        if(new Time() < Configure::read('opening')) {
+        if (new Time() < Configure::read('opening')) {
             $this->redirect('/');
         }
 
@@ -31,7 +34,7 @@ class TicketsController extends AppController
                 if ($ticket->type == 'PAYPAL') {
                     $this->loadComponent('PayPal');
                     // PayPal process
-                    if($this->PayPal->SetExpressCheckout()) {
+                    if ($this->PayPal->SetExpressCheckout()) {
                         $this->request->session()->write('ticket.id', $ticket->id);
                         $this->redirect($this->request->session()->read('SetExpressCheckoutResult.REDIRECTURL'));
                     }
@@ -48,10 +51,11 @@ class TicketsController extends AppController
     /**
      * Success method
      */
-    public function success() {
+    public function success()
+    {
         $ticketId = $this->request->session()->read('ticket.id');
 
-        if(!empty($ticketId)) {
+        if (!empty($ticketId)) {
             $this->loadComponent('PayPal');
 
             if ($this->PayPal->DoExpressCheckoutPayment()) {

@@ -29,5 +29,23 @@
     "fonts": {
       "/plugins/font-awesome/fonts/fontawesome-webfont.{ttf,woff,woff2,eot,svg}": "/fonts/font-awesome/"
     }
+  },
+  "admin": {
+    "css": [
+      "/plugins/bootstrap/dist/css/bootstrap.css",
+      "/plugins/font-awesome/css/font-awesome.css",
+      "/css/common/fonts.css",
+      "/css/common/bootstrap-theme.css",
+      "/css/admin/main.css"
+    ],
+    "css_replace": {
+      "../fonts/glyphicons-halflings-regular": "../fonts/glyphicons-halflings-regular/glyphicons-halflings-regular",
+      "../fonts/fontawesome-webfont": "../fonts/font-awesome/fontawesome-webfont",
+      "../../fonts/panama-light/panama-light": "../fonts/panama-light/panama-light"},
+    "js": [
+      "/plugins/jquery/dist/jquery.js",
+      "/plugins/bootstrap/dist/js/bootstrap.js",
+      "/js/admin/main.js"
+    ]
   }
 }
