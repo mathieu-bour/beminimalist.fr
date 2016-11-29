@@ -1,4 +1,4 @@
-<?= $this->Form->create('Ticket'); ?>
+<?= $this->Form->create('Ticket', ['id' => 'ticket-book']); ?>
 
 <div class="row">
     <div class="col-md-6">
@@ -24,7 +24,7 @@
         <div class="form-group">
             <label class="control-label">Sexe</label>
             <div>
-                <label for="gender-m" class="radio-inline"><input type="radio" name="gender" value="M" id="gender-m">Homme</label>
+                <label for="gender-m" class="radio-inline"><input type="radio" name="gender" value="M" id="gender-m" checked>Homme</label>
                 <label for="gender-f" class="radio-inline"><input type="radio" name="gender" value="F" id="gender-f">Femme</label>
             </div>
         </div>
@@ -76,10 +76,10 @@
             <label class="control-label">Choix du mode de paiement</label>
             <div class="row">
                 <div class="col-md-6">
-                    <button class="btn btn-ghost-inv">PayPal (11.00€)</button>
+                    <button class="btn btn-ghost-inv" name="type" value="paypal">PayPal (11.00€)</button>
                 </div>
                 <div class="col-md-6">
-                    <button class="btn btn-ghost-inv">Permanence (10.00€)</button>
+                    <button class="btn btn-ghost-inv" name="type" value="perm">Permanence (10.00€)</button>
                 </div>
             </div>
         </div>

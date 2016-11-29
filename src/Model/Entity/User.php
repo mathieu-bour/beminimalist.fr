@@ -11,7 +11,7 @@ use Cake\ORM\Entity;
  * @property string $lastname
  * @property string $password
  * @property string $email
- * @property string $code
+ * @property int $code
  * @property int $ticket_count
  */
 class User extends Entity

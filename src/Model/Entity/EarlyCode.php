@@ -4,24 +4,14 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Ticket Entity
+ * EarlyCode Entity
  *
  * @property int $id
- * @property int $barcode
- * @property string $type
- * @property bool $paid
- * @property string $state
- * @property string $user_code
- * @property string $firstname
- * @property string $lastname
- * @property string $gender
- * @property \Cake\I18n\Time $birthdate
- * @property string $address
- * @property int $zip_code
- * @property string $city
- * @property \Cake\I18n\Time $created
+ * @property string $code
+ * @property \Cake\I18n\Time $expire
+ * @property int $remaining_uses
  */
-class Ticket extends Entity
+class EarlyCode extends Entity
 {
 
     /**

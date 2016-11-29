@@ -1,9 +1,10 @@
 <?php
 namespace App\Controller;
 
+use App\Model\Entity\Ticket;
 use Cake\Core\Configure;
 use Cake\I18n\Time;
-use HTML2PDF;
+use Cake\ORM\TableRegistry;
 use mikehaertl\wkhtmlto\Pdf;
 
 /**
@@ -20,18 +21,49 @@ class TicketsController extends AppController
      */
     public function book()
     {
-        // Prevent user to enter before opening date
-        if (new Time() < Configure::read('opening')) {
-            $this->redirect('/');
-        }
+        $now = new Time();
 
-        $ticket = $this->Tickets->newEntity();
+        // Prevent user to enter before opening date
+        /*if ($now < Configure::read('opening_early')) {
+            $this->redirect('/');
+        }*/
 
         if ($this->request->is('post')) {
+            /**
+             * @var Ticket $ticket
+             */
+            $ticket = $this->Tickets->newEntity();
             $ticket = $this->Tickets->patchEntity($ticket, $this->request->data);
 
+            if ($now < Configure::read('opening_global')) {
+                if(empty($ticket->early_code)) {
+                    $this->Flash->error('Un code d\'accès est nécessaire !');
+                } else {
+                    $this->EarlyCodes = TableRegistry::get('EarlyCodes');
+                    $earlyCode = $this->EarlyCodes->find('all')->where(['code' => $ticket->early_code])->first();
+
+                    if (empty($earlyCode)) {
+                        $this->Flash->error('Ce code n\'existe pas');
+                        $this->redirect(['action' => 'book']);
+                    } else if ($earlyCode->expire < $now) {
+                        $this->Flash->error('Ce code a expiré');
+                        $this->redirect(['action' => 'book']);
+                    } else if ($earlyCode->remaining_uses == 0) {
+                        $this->Flash->error('Ce code a attenit sa limite d\'utilisation');
+                        $this->redirect(['action' => 'book']);
+                    }
+                }
+            }
+
+            $ticket->barcode = rand(100000000, 999999999);
+
             if ($this->Tickets->save($ticket)) {
-                if ($ticket->type == 'PAYPAL') {
+                if (!empty($earlyCode)) {
+                    $earlyCode->remaining_uses--;
+                    $this->EarlyCodes->save($earlyCode);
+                }
+
+                if ($ticket->type == 'paypal') {
                     $this->loadComponent('PayPal');
                     // PayPal process
                     if ($this->PayPal->SetExpressCheckout()) {

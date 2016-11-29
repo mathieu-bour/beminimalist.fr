@@ -1,11 +1,11 @@
 prod:
-    scheme: sftp
-    host: web00.point-blank.fr
-    port: 22
-    user: root
-    pass: GjxAwAkCAJkh1odM1p4A
+    scheme: ftp
+    host: web01.pixelads.fr
+    port: 21
+    user: mathieu
+    pass: BJF6weiiafNtn5
     check: true
-    exclude: ["webroot/css/public/*", "webroot/js/public/*", "./.*", "bower.json", "gulpfile.js", "package.json", "phpunit.xml.dist", "README.md"]
+    exclude: ["webroot/css/public/*", "webroot/js/public/*", "webroot/css/admin/*", "webroot/js/admin/*", "./.*", "./.*", "bower.json", "gulpfile.js", "package.json", "phpunit.xml.dist", "README.md"]
     path:
         local: /
-        remote: /var/www/beminimalist.fr
+        remote: /beminimalist.fr

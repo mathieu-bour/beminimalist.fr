@@ -305,16 +305,16 @@
         },
         {
             "name": "cakephp/migrations",
-            "version": "1.6.3",
+            "version": "1.6.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/migrations.git",
-                "reference": "b683daebb6d0f0ea41546b14f8a9ea591cebedfd"
+                "reference": "a7d36f1e3897f05a4d70eef82ce188d74befa8cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/migrations/zipball/b683daebb6d0f0ea41546b14f8a9ea591cebedfd",
-                "reference": "b683daebb6d0f0ea41546b14f8a9ea591cebedfd",
+                "url": "https://api.github.com/repos/cakephp/migrations/zipball/a7d36f1e3897f05a4d70eef82ce188d74befa8cc",
+                "reference": "a7d36f1e3897f05a4d70eef82ce188d74befa8cc",
                 "shasum": ""
             },
             "require": {
@@ -351,7 +351,7 @@
                 "cakephp",
                 "migrations"
             ],
-            "time": "2016-06-23 17:18:29"
+            "time": "2016-11-14 21:54:46"
         },
         {
             "name": "cakephp/plugin-installer",
@@ -450,12 +450,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Holt59/cakephp3-bootstrap-helpers.git",
-                "reference": "76a417e5e995fb38e8ce739d4cdf8e2cc2fdc68e"
+                "reference": "522f2b48476cf3b42d20aab3762b16121b1ce685"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Holt59/cakephp3-bootstrap-helpers/zipball/76a417e5e995fb38e8ce739d4cdf8e2cc2fdc68e",
-                "reference": "76a417e5e995fb38e8ce739d4cdf8e2cc2fdc68e",
+                "url": "https://api.github.com/repos/Holt59/cakephp3-bootstrap-helpers/zipball/522f2b48476cf3b42d20aab3762b16121b1ce685",
+                "reference": "522f2b48476cf3b42d20aab3762b16121b1ce685",
                 "shasum": ""
             },
             "require": {
@@ -483,7 +483,7 @@
                 "bootstrap",
                 "cakephp"
             ],
-            "time": "2016-11-25 20:57:01"
+            "time": "2016-11-28 16:12:17"
         },
         {
             "name": "mikehaertl/php-shellcommand",

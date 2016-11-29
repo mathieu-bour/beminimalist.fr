@@ -59,64 +59,35 @@ class TicketsTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
+            // id
             ->integer('id')
-            ->allowEmpty('id', 'create');
-
-        $validator
-            ->allowEmpty('firstname');
-
-        $validator
-            ->allowEmpty('lastname');
-
-        $validator
-            ->allowEmpty('gender');
-
-        $validator
-            ->date('birthdate')
-            ->allowEmpty('birthdate');
-
-        $validator
-            ->email('email')
-            ->allowEmpty('email');
-
-        $validator
-            ->allowEmpty('address');
-
-        $validator
-            ->integer('zip_code')
-            ->allowEmpty('zip_code');
-
-        $validator
-            ->allowEmpty('city');
-
-        $validator
-            ->allowEmpty('type');
-
-        $validator
+            ->allowEmpty('id', 'create')
+            // barcode
+            ->integer('barcode')
+            ->allowEmpty('barcode', 'update')
+            // type
+            ->inList('type', ['paypal', 'perm'])
+            // paid
             ->boolean('paid')
-            ->allowEmpty('paid');
-
-        $validator
-            ->boolean('sent')
-            ->allowEmpty('sent');
-
-        $validator
-            ->allowEmpty('user_code');
+            // state
+            ->inList('state', ['pending', 'printed', 'sent'])
+            // user_code
+            ->allowEmpty('user_code')
+            // firstname
+            // lastname
+            // gender
+            ->inList('gender', ['M', 'F'])
+            // birthdate
+            ->date('birthdate')
+            // email
+            ->email('email')
+            // address
+            // zip_code
+            ->integer('zip_code')
+            // created
+            ->dateTime('created')
+            ->allowEmpty('created');
 
         return $validator;
-    }
-
-    /**
-     * Returns a rules checker object that will be used for validating
-     * application integrity.
-     *
-     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
-     * @return \Cake\ORM\RulesChecker
-     */
-    public function buildRules(RulesChecker $rules)
-    {
-        $rules->add($rules->isUnique(['email']));
-
-        return $rules;
     }
 }

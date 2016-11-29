@@ -140,17 +140,19 @@ class TicketsController extends AppController
     {
         $codes = explode(',', $this->request->query['codes']);
 
-        if (empty($codes)) {
-            $tickets = $this->Tickets->find('all')
-                ->where(['paid' => 1, 'state' => 'TO_PRINT', 'code IN' => $codes])
-                ->toArray();
-
-            $this->set(compact('tickets'));
-            $this->render('index');
-        } else {
+        if (!empty($codes)) {
             $this->viewBuilder()->layout('pdf_ticket');
+
+            /*$tickets = $this->Tickets->find('all', [
+                'fields' => ['id', 'barcode', 'firstname',' lastname', 'address', 'zip_code', 'city'],
+                'conditions' => [
+                    'paid' => 1,
+                    'code IN' => $codes
+                ]
+            ])->toArray();*/
+
             $this->response->type('pdf');
-            $this->set('codes', $codes);
+            //$this->set(compact('tickets'));
         }
     }
 }

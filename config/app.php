@@ -222,16 +222,16 @@ return [
             'className' => 'Cake\Database\Connection',
             'driver' => 'Cake\Database\Driver\Mysql',
             'persistent' => false,
-            'host' => 'web00.point-blank.fr',
+            'host' => 'web01.pixelads.fr',
             /**
              * CakePHP will use the default DB port based on the driver selected
              * MySQL on MAMP uses port 8889, MAMP users will want to uncomment
              * the following line and set the port accordingly
              */
             //'port' => 'non_standard_port_number',
-            'username' => 'beminimalist',
-            'password' => 'g2wkCXBi2WW6FGiAXnob',
-            'database' => 'beminimalist',
+            'username' => 'mathieu',
+            'password' => '7pjx9dWszdiJC6zH',
+            'database' => 'site-beminimalist-fr',
             'encoding' => 'utf8',
             'timezone' => 'UTC',
             'flags' => [],
@@ -258,7 +258,7 @@ return [
             //'init' => ['SET GLOBAL innodb_stats_on_metadata = 0'],
 
             'url' => env('DATABASE_URL', null),
-        ],
+        ], // site-beminimalist-fr / g2wkCXBi2WW6FGiAXnob
 
         /**
          * The test connection is used during the test suite.
