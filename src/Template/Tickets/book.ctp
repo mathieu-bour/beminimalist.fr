@@ -1,5 +1,6 @@
 <?= $this->Form->create('Ticket', ['id' => 'ticket-book']); ?>
 
+<h1 class="page-title text-center">Commander ma place</h1>
 <div class="row">
     <div class="col-md-6">
         <label class="control-label">Profil</label>
@@ -76,10 +77,10 @@
             <label class="control-label">Choix du mode de paiement</label>
             <div class="row">
                 <div class="col-md-6">
-                    <button class="btn btn-ghost-inv" name="type" value="paypal">PayPal (11.00€)</button>
+                    <button class="btn btn-info" name="type" value="paypal">PayPal (11.00€)</button>
                 </div>
                 <div class="col-md-6">
-                    <button class="btn btn-ghost-inv" name="type" value="perm">Permanence (10.00€)</button>
+                    <button class="btn btn-success" name="type" value="perm">Permanence (10.00€)</button>
                 </div>
             </div>
         </div>
