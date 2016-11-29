@@ -11,6 +11,11 @@
             ); ?>
         </li>
         <li>
+            <?= $this->Html->link('Codes d\'accès',
+                ['controller' => 'EarlyCodes', 'action' => 'index']
+            ); ?>
+        </li>
+        <li>
             <?= $this->Html->link('Assistant',
                 ['controller' => 'Tickets', 'action' => 'wizard', 'init']
             ); ?>

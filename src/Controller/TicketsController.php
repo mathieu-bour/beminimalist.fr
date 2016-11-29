@@ -24,16 +24,19 @@ class TicketsController extends AppController
         $now = new Time();
 
         // Prevent user to enter before opening date
-        /*if ($now < Configure::read('opening_early')) {
+        if ($now < Configure::read('opening_early')) {
             $this->redirect('/');
-        }*/
+        }
 
         if ($this->request->is('post')) {
             /**
              * @var Ticket $ticket
              */
-            $ticket = $this->Tickets->newEntity();
-            $ticket = $this->Tickets->patchEntity($ticket, $this->request->data);
+            $ticket = $this->Tickets->newEntity($this->request->data);
+
+            if($ticket->error) {
+                $this->Flash->error(implode('<br>', $ticket));
+            }
 
             if ($now < Configure::read('opening_global')) {
                 if(empty($ticket->early_code)) {
