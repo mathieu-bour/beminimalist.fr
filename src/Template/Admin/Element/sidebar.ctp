@@ -8,7 +8,7 @@
         </li>
         <li>
             <?= $this->Html->link(
-                'Tous les tickets <span class="badge pull-right">' . $counters['Tickets']['all'] . '</span>',
+                'Tickets <span class="badge pull-right">' . $counters['Tickets']['all'] . '</span>',
                 ['controller' => 'Tickets', 'action' => 'index'],
                 ['escape' => false]
             ); ?>
@@ -16,6 +16,11 @@
         <li>
             <?= $this->Html->link('Codes d\'accès',
                 ['controller' => 'EarlyCodes', 'action' => 'index']
+            ); ?>
+        </li>
+        <li>
+            <?= $this->Html->link('Permanences',
+                ['controller' => 'Perms', 'action' => 'index']
             ); ?>
         </li>
         <li>

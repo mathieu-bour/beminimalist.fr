@@ -85,6 +85,11 @@ class AppController extends Controller
         }
     }
 
+    /**
+     * Get a view var
+     * @param $key
+     * @return null
+     */
     public function get($key)
     {
         if (!empty($this->viewVars[$key])) {

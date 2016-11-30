@@ -5,9 +5,9 @@ class TicketsController extends AppController
 {
     public function index()
     {
-        $tickets = $this->Tickets->find('all')->toArray();
-
+        $tickets = $this->paginate($this->Tickets);
         $this->set(compact('tickets'));
+        $this->set('_serialize', ['tickets']);
     }
 
     public function print()
@@ -17,16 +17,14 @@ class TicketsController extends AppController
         if (!empty($codes)) {
             $this->viewBuilder()->layout('pdf_ticket');
 
-            /*$tickets = $this->Tickets->find('all', [
-                'fields' => ['id', 'barcode', 'firstname',' lastname', 'address', 'zip_code', 'city'],
+            $tickets = $this->Tickets->find('all', [
                 'conditions' => [
-                    'paid' => 1,
-                    'code IN' => $codes
+                    'barcode IN' => $codes
                 ]
-            ])->toArray();*/
+            ])->toArray();
 
-            $this->response->type('pdf');
-            //$this->set(compact('tickets'));
+            //$this->response->type('pdf');
+            $this->set(compact('tickets'));
         }
     }
 }

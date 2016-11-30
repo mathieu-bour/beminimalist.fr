@@ -4,13 +4,15 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Permanency Entity
+ * Perm Entity
  *
  * @property int $id
- * @property \Cake\I18n\Time $begin
- * @property string $location
+ * @property string $address
+ * @property int $zip_code
+ * @property string $city
+ * @property \Cake\I18n\Time $datetime
  */
-class Permanency extends Entity
+class Perm extends Entity
 {
 
     /**

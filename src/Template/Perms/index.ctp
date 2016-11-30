@@ -1,4 +1,6 @@
-<table class="table">
+<h3>Permanences</h3>
+
+<table class="table text-left">
     <thead>
         <tr>
             <th><?= $this->Paginator->sort('datetime', 'Date') ?></th>

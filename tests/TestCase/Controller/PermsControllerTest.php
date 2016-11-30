@@ -1,13 +1,13 @@
 <?php
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\PermanenciesController;
+use App\Controller\PermsController;
 use Cake\TestSuite\IntegrationTestCase;
 
 /**
- * App\Controller\PermanenciesController Test Case
+ * App\Controller\PermsController Test Case
  */
-class PermanenciesControllerTest extends IntegrationTestCase
+class PermsControllerTest extends IntegrationTestCase
 {
 
     /**
@@ -16,7 +16,7 @@ class PermanenciesControllerTest extends IntegrationTestCase
      * @var array
      */
     public $fixtures = [
-        'app.permanencies'
+        'app.perms'
     ];
 
     /**

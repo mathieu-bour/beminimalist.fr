@@ -1,22 +1,22 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\PermanenciesTable;
+use App\Model\Table\PermsTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\PermanenciesTable Test Case
+ * App\Model\Table\PermsTable Test Case
  */
-class PermanenciesTableTest extends TestCase
+class PermsTableTest extends TestCase
 {
 
     /**
      * Test subject
      *
-     * @var \App\Model\Table\PermanenciesTable
+     * @var \App\Model\Table\PermsTable
      */
-    public $Permanencies;
+    public $Perms;
 
     /**
      * Fixtures
@@ -24,7 +24,7 @@ class PermanenciesTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.permanencies'
+        'app.perms'
     ];
 
     /**
@@ -35,8 +35,8 @@ class PermanenciesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Permanencies') ? [] : ['className' => 'App\Model\Table\PermanenciesTable'];
-        $this->Permanencies = TableRegistry::get('Permanencies', $config);
+        $config = TableRegistry::exists('Perms') ? [] : ['className' => 'App\Model\Table\PermsTable'];
+        $this->Perms = TableRegistry::get('Perms', $config);
     }
 
     /**
@@ -46,7 +46,7 @@ class PermanenciesTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Permanencies);
+        unset($this->Perms);
 
         parent::tearDown();
     }
