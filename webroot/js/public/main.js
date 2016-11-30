@@ -1,6 +1,6 @@
 $(function () {
     function updateCountDown() {
-        var cd = moment().countdown('2016-11-30 7:14:50', countdown.DAYS | countdown.HOURS | countdown.MINUTES | countdown.SECONDS);
+        var cd = moment().countdown('2016-11-30 19:00:00', countdown.DAYS | countdown.HOURS | countdown.MINUTES | countdown.SECONDS);
 
         $("#countdown-days").text(cd.days);
         $("#countdown-hours").text((cd.hours < 10 ? "0" : "") + cd.hours);
@@ -12,10 +12,19 @@ $(function () {
         $("#countdown-minutes-label").text("minute" + (cd.minutes > 1 ? "s" : ""));
         $("#countdown-seconds-label").text("seconde" + (cd.seconds > 1 ? "s" : ""));
 
-        if(cd.value > 0) {
+        if (cd.value > 0) {
             requestAnimationFrame(updateCountDown);
         } else {
             $('#btn-book').attr('href', '/book').text('Places disponibles ici !');
+            $("#countdown-days").text(0);
+            $("#countdown-hours").text(0);
+            $("#countdown-minutes").text(0);
+            $("#countdown-seconds").text(0);
+
+            $("#countdown-days-label").text("jour");
+            $("#countdown-hours-label").text("heure");
+            $("#countdown-minutes-label").text("minute");
+            $("#countdown-seconds-label").text("seconde");
         }
     }
 
