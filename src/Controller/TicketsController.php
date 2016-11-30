@@ -22,12 +22,14 @@ class TicketsController extends AppController
     public function book()
     {
         $now = new Time();
+        $early = new Time($this->Settings->read('opening_early'));
+        $global = new Time($this->Settings->read('opening_global'));
 
         // Prevent user to access to the ticketing
         if ($this->Settings->read('ticketing') != '1') {
             $this->Flash->error('La billeterie est fermée !');
             return $this->redirect('/');
-        } else if ($now < new Time($this->Settings->read('opening_early'))) {
+        } else if ($now < $early) {
             $this->Flash->error('La billeterie n\'est pas encore ouverte !');
             return $this->redirect('/');
         } else if ((int)$this->Settings->read('tickets_left') <= 0) {
@@ -44,7 +46,7 @@ class TicketsController extends AppController
 
             if (empty($ticket->errors())) {
 
-                if ($now < new Time($this->Settings->read('opening_global'))) {
+                if ($now < $global) {
                     if (empty($ticket->early_code)) {
                         $this->Flash->error('Un code d\'accès est nécessaire !');
                         $this->redirect(['action' => 'book']);
@@ -55,7 +57,7 @@ class TicketsController extends AppController
                         if (empty($earlyCode)) {
                             $this->Flash->error('Ce code n\'existe pas');
                             $this->redirect(['action' => 'book']);
-                        } else if ($earlyCode->expire < $now) {
+                        } else if (new Time($earlyCode->expire) < $now) {
                             $this->Flash->error('Ce code a expiré');
                             $this->redirect(['action' => 'book']);
                         } else if ($earlyCode->remaining_uses == 0) {

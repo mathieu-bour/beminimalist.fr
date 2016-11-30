@@ -17,6 +17,7 @@
                     <th>Payé</th>
                     <th>Status</th>
                     <th>Vendeur</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
 
@@ -50,9 +51,27 @@
                                 Aucun
                             <?php endif; ?>
                         </td>
+                        <td>
+                            <?= $this->Form->postLink(
+                                '<span class="label label-danger"><i class="fa fa-trash-o"></i></span>',
+                                ['action' => 'delete', $ticket->id],
+                                [
+                                    'escape' => false,
+                                    'confirm' => __('Supprimer le ticket #{0} ?', $ticket->barcode)
+                                ]
+                            ) ?>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
+
+        <div class="paginator">
+            <ul class="pagination">
+                <?= $this->Paginator->prev('< Précédents') ?>
+                <?= $this->Paginator->numbers() ?>
+                <?= $this->Paginator->next('Suivants >') ?>
+            </ul>
+        </div>
     </div>
 </div>

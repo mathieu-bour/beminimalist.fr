@@ -47,12 +47,3 @@
     <a href="https://www.facebook.com/minimalist.france" target="_blank"><i class="fa fa-facebook-official"></i></a>
     <a href="https://twitter.com/MINIMALIST__fr" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
 </div>
-
-
-<?php
-/*
-<div class="text-center">
-     <?= $this->Html->link('Réserver ma place', ['controller' => 'Tickets', 'action' => 'book'], ['class' => 'btn btn-lg btn-ghost-inv']); ?>
-</div>
-*/
-?>
