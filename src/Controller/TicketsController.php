@@ -45,7 +45,6 @@ class TicketsController extends AppController
             $ticket = $this->Tickets->newEntity($this->request->data);
 
             if (empty($ticket->errors())) {
-
                 if ($now < $global) {
                     if (empty($ticket->early_code)) {
                         $this->Flash->error('Un code d\'accès est nécessaire !');

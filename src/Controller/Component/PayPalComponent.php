@@ -26,7 +26,7 @@ class PayPalComponent extends Component
         $this->Session = $this->Controller->request->session();
 
         $PayPalConfig = array(
-            'Sandbox' => true,
+            'Sandbox' => false,
             'APIUsername' => 'contact_api1.beminimalist.fr',
             'APIPassword' => 'NKRRGL5A7YKAFBXH',
             'APISignature' => 'AFcWxV21C7fd0v3bYYYRCpSSRl31AljeqmHC8PJ9J.BXIkYe28Rs7dks',
