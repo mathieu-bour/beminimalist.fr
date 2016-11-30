@@ -4,6 +4,6 @@
     <div class="pull-right">
         <span>Connecté en tant que <?= $session->read('Auth.User.firstname'); ?> <?= $session->read('Auth.User.lastname'); ?></span>
 
-        <?= $this->Html->link('Déconnexion', ['controller' => 'User', 'action' => 'logout'], ['class' => 'btn btn-danger']); ?>
+        <?= $this->Html->link('Déconnexion', ['controller' => 'Users', 'action' => 'logout'], ['class' => 'btn btn-danger']); ?>
     </div>
 </header>

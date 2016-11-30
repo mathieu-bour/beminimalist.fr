@@ -15,14 +15,11 @@ class UsersController extends AppController
         $this->viewBuilder()->layout('admin_centred');
 
         if ($this->Auth->user()) {
-            $this->Flash->error('Vous êtes déjà connecté', [
-                'key' => 'auth'
-            ]);
+            $this->Flash->error('Vous êtes déjà connecté');
             $this->redirect(['controller' => 'pages', 'action' => 'dashboard']);
         }
 
         if ($this->request->is('post')) {
-            debug($this->request->data);
             $user = $this->Auth->identify();
 
             if ($user) {
@@ -30,11 +27,16 @@ class UsersController extends AppController
 
                 $this->redirect(['controller' => 'pages', 'action' => 'dashboard']);
             } else {
-                $this->Flash->error('Identifiants incorrects', [
-                    'key' => 'auth'
-                ]);
+                $this->Flash->error('Identifiants incorrects');
             }
         }
+    }
+
+    public function logout()
+    {
+        $this->Flash->success('Vous êtes maintenant déconnecté.');
+        $this->get('session')->clear();
+        return $this->redirect(['controller' => 'Users', 'action' => 'login']);
     }
 
 

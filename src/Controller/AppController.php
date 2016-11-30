@@ -84,4 +84,13 @@ class AppController extends Controller
             $this->set('_serialize', true);
         }
     }
+
+    public function get($key)
+    {
+        if (!empty($this->viewVars[$key])) {
+            return $this->viewVars[$key];
+        } else {
+            return null;
+        }
+    }
 }
