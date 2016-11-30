@@ -5,6 +5,7 @@
       "/plugins/font-awesome/css/font-awesome.css",
       "/css/common/fonts.css",
       "/css/common/bootstrap-theme.css",
+      "/css/common/layouts.css",
       "/css/public/general.css",
       "/css/public/home.css",
       "/css/public/header.css",
@@ -34,9 +35,11 @@
     "css": [
       "/plugins/bootstrap/dist/css/bootstrap.css",
       "/plugins/font-awesome/css/font-awesome.css",
+      "/css/common/layouts.css",
       "/css/common/fonts.css",
       "/css/common/bootstrap-theme.css",
-      "/css/admin/main.css"
+      "/css/admin/main.css",
+      "/css/admin/login.css"
     ],
     "css_replace": {
       "../fonts/glyphicons-halflings-regular": "../fonts/glyphicons-halflings-regular/glyphicons-halflings-regular",

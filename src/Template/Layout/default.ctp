@@ -2,6 +2,8 @@
 
 <body>
     <div class="container" id="container">
+        <?= $this->Flash->render(); ?>
+
         <div class="content">
             <?= $this->fetch('content'); ?>
         </div>

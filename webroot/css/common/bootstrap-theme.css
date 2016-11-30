@@ -1,3 +1,9 @@
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Panama', Helvetica, sans-serif;
+}
+
+/* = Buttons
+ * =========================================================== */
 .btn-ghost {
     font-family: 'Panama', Helvetica, sans-serif;
     border-radius: 0;
@@ -26,4 +32,9 @@
     color: #fff;
 }
 
+/* = Forms
+ * =========================================================== */
+.form-control {
+    border-radius: 0;
 
+}

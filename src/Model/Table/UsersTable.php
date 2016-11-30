@@ -34,9 +34,8 @@ class UsersTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->hasMany('Comments', [
+        $this->hasMany('Tickets', [
             'foreignKey' => 'user_code',
-            'dependent' => true,
         ]);
     }
 
@@ -53,22 +52,7 @@ class UsersTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->allowEmpty('firstname');
-
-        $validator
-            ->allowEmpty('lastname');
-
-        $validator
-            ->allowEmpty('password');
-
-        $validator
             ->email('email')
-            ->allowEmpty('email');
-
-        $validator
-            ->allowEmpty('code');
-
-        $validator
             ->integer('ticket_count')
             ->allowEmpty('ticket_count');
 

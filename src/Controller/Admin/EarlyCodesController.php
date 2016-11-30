@@ -8,7 +8,6 @@ namespace App\Controller\Admin;
  */
 class EarlyCodesController extends AppController
 {
-
     /**
      * Index method
      *
@@ -22,65 +21,17 @@ class EarlyCodesController extends AppController
         $this->set('_serialize', ['earlyCodes']);
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id Early Code id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $earlyCode = $this->EarlyCodes->get($id, [
-            'contain' => []
-        ]);
-
-        $this->set('earlyCode', $earlyCode);
-        $this->set('_serialize', ['earlyCode']);
-    }
-
-    /**
-     * Add method
-     *
-     * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
-     */
     public function add()
     {
         $earlyCode = $this->EarlyCodes->newEntity();
         if ($this->request->is('post')) {
             $earlyCode = $this->EarlyCodes->patchEntity($earlyCode, $this->request->data);
             if ($this->EarlyCodes->save($earlyCode)) {
-                $this->Flash->success(__('The early code has been saved.'));
+            $this->Flash->success('Le code d\'accès a bien été sauvegardé');
 
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The early code could not be saved. Please, try again.'));
-            }
-        }
-        $this->set(compact('earlyCode'));
-        $this->set('_serialize', ['earlyCode']);
-    }
-
-    /**
-     * Edit method
-     *
-     * @param string|null $id Early Code id.
-     * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
-    public function edit($id = null)
-    {
-        $earlyCode = $this->EarlyCodes->get($id, [
-            'contain' => []
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $earlyCode = $this->EarlyCodes->patchEntity($earlyCode, $this->request->data);
-            if ($this->EarlyCodes->save($earlyCode)) {
-                $this->Flash->success(__('The early code has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The early code could not be saved. Please, try again.'));
+            $this->Flash->error('Erreur lors de la saubegarde du code d\'accès');
             }
         }
         $this->set(compact('earlyCode'));
@@ -99,11 +50,11 @@ class EarlyCodesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $earlyCode = $this->EarlyCodes->get($id);
         if ($this->EarlyCodes->delete($earlyCode)) {
-            $this->Flash->success(__('The early code has been deleted.'));
+            $this->Flash->success('Le code d\'accès a bien été suppprimé');
         } else {
-            $this->Flash->error(__('The early code could not be deleted. Please, try again.'));
+            $this->Flash->error('Erreur lors de la suppression du code d\'accès');
         }
 
-        return $this->redirect(['action' => 'index']);
+        $this->redirect(['action' => 'index']);
     }
 }

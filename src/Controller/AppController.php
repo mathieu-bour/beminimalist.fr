@@ -58,6 +58,8 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
+        $this->loadComponent('Settings');
+        $this->set('settings', $this->Settings);
     }
 
     public function beforeFilter(Event $event)

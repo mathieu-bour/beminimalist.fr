@@ -12,9 +12,21 @@ use Cake\ORM\TableRegistry;
  *
  * @property TicketsTable $Tickets
  */
-class AppController extends \App\Controller\AppController  {
+class AppController extends \App\Controller\AppController
+{
     public function beforeFilter(Event $event)
     {
+        $this->loadComponent('Auth', [
+            'authenticate' => [
+                'Form' => [
+                    'fields' => ['username' => 'email'],
+                    'passwordHasher' => [
+                        'className' => 'Default'
+                    ]
+                ]
+            ]
+        ]);
+
         $this->viewBuilder()->layout('admin');
 
         $this->Tickets = TableRegistry::get('Tickets');

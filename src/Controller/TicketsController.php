@@ -23,9 +23,16 @@ class TicketsController extends AppController
     {
         $now = new Time();
 
-        // Prevent user to enter before opening date
-        if ($now < Configure::read('opening_early')) {
-            $this->redirect('/');
+        // Prevent user to access to the ticketing
+        if($this->Settings->read('ticketing') != '1') {
+            $this->Flash->error('La billeterie est fermée !');
+            return $this->redirect('/');
+        } else if ($now < new Time($this->Settings->read('opening_early'))) {
+            $this->Flash->error('La billeterie n\'est pas encore ouverte !');
+            return $this->redirect('/');
+        } else if((int)$this->Settings->read('tickets_left') <= 0) {
+            $this->Flash->error('Tous les tickets ont été vendus !');
+            return $this->redirect('/');
         }
 
         if ($this->request->is('post')) {
@@ -34,13 +41,14 @@ class TicketsController extends AppController
              */
             $ticket = $this->Tickets->newEntity($this->request->data);
 
-            if($ticket->error) {
+            if($ticket->errors()) {
                 $this->Flash->error(implode('<br>', $ticket));
             }
 
-            if ($now < Configure::read('opening_global')) {
+            if ($now < new Time($this->Settings->read('opening_global'))) {
                 if(empty($ticket->early_code)) {
                     $this->Flash->error('Un code d\'accès est nécessaire !');
+                    $this->redirect(['action' => 'book']);
                 } else {
                     $this->EarlyCodes = TableRegistry::get('EarlyCodes');
                     $earlyCode = $this->EarlyCodes->find('all')->where(['code' => $ticket->early_code])->first();
@@ -58,13 +66,18 @@ class TicketsController extends AppController
                 }
             }
 
+            // Generate random barcode
             $ticket->barcode = rand(100000000, 999999999);
 
             if ($this->Tickets->save($ticket)) {
+                // If an early case has been used
                 if (!empty($earlyCode)) {
                     $earlyCode->remaining_uses--;
                     $this->EarlyCodes->save($earlyCode);
                 }
+
+                // Update tickets_left setting
+                $this->Settings->write('tickets_left', (int)$this->Settings->read('tickets_left') - 1);
 
                 if ($ticket->type == 'paypal') {
                     $this->loadComponent('PayPal');

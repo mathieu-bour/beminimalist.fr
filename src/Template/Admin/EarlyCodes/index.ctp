@@ -1,43 +1,74 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Early Code'), ['action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="earlyCodes index large-9 medium-8 columns content">
-    <h3><?= __('Early Codes') ?></h3>
-    <table cellpadding="0" cellspacing="0">
-        <thead>
-            <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('code') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('expire') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('remaining_uses') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($earlyCodes as $earlyCode): ?>
-            <tr>
-                <td><?= $this->Number->format($earlyCode->id) ?></td>
-                <td><?= h($earlyCode->code) ?></td>
-                <td><?= h($earlyCode->expire) ?></td>
-                <td><?= $this->Number->format($earlyCode->remaining_uses) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $earlyCode->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $earlyCode->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $earlyCode->id], ['confirm' => __('Are you sure you want to delete # {0}?', $earlyCode->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-        </ul>
-        <p><?= $this->Paginator->counter() ?></p>
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3>Codes d'accès</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th><?= $this->Paginator->sort('code') ?></th>
+                            <th><?= $this->Paginator->sort('expire', 'Date d\'expiration') ?></th>
+                            <th><?= $this->Paginator->sort('remaining_uses', 'Utilisations restantes') ?></th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($earlyCodes as $earlyCode): ?>
+                            <tr>
+                                <td><?= $earlyCode->code ?></td>
+                                <td><?= $earlyCode->expire ?></td>
+                                <td><?= $earlyCode->remaining_uses ?></td>
+                                <td>
+                                    <?= $this->Form->postLink(
+                                        '<span class="label label-danger"><i class="fa fa-trash-o"></i></span>',
+                                        ['action' => 'delete', $earlyCode->id],
+                                        [
+                                            'escape' => false,
+                                            'confirm' => __('Supprimer le code {0} ?', $earlyCode->code)
+                                        ]
+                                    ) ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+                <div class="paginator">
+                    <ul class="pagination">
+                        <?= $this->Paginator->prev('< Précédents') ?>
+                        <?= $this->Paginator->numbers() ?>
+                        <?= $this->Paginator->next('Suivants >') ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3>Ajouter un code d'accès</h3>
+            </div>
+
+            <div class="panel-body">
+                <?= $this->Form->create(null, ['url' => ['controller' => 'EarlyCodes', 'action' => 'add']]); ?>
+                <?= $this->Form->input('code', ['label' => 'Nom', 'placeholder' => 'blabla']); ?>
+
+                <?= $this->Form->input('expire', [
+                    'label' => 'Date d\'expiration',
+                    'type' => 'datetime',
+                    'second' => true,
+                    'minYear' => date('Y'),
+                    'templates' => [
+                        'dateWidget' => '{{day}}{{month}}{{year}}{{hour}}{{minute}}{{second}}'
+                    ]
+                ]); ?>
+                <?= $this->Form->input('remaining_uses', ['label' => 'Utilisations maximum', 'placeholder' => '10']); ?>
+
+                <button class="btn btn-block btn-info">Ajouter le code</button>
+                <?php $this->Form->end(); ?>
+            </div>
+        </div>
     </div>
 </div>

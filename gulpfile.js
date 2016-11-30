@@ -129,4 +129,8 @@ gulp.task('watch', ['css_public', 'js_public', 'css_admin', 'js_admin'], functio
     // Admin
     gulp.watch('webroot/css/admin/*.css', ['css_admin']);
     gulp.watch('webroot/js/admin/*.js', ['js_admin']);
+
+    // Common
+    gulp.watch('webroot/css/common/*.css', ['css_public', 'css_admin']);
+    gulp.watch('webroot/js/common/*.js', ['js_public', 'js_admin']);
 });

@@ -5,3 +5,11 @@
     font-weight: 300;
     font-style: normal;
 }
+
+@font-face {
+    font-family: 'Oswald';
+    src: url('../../fonts/oswald/oswald-regular.woff2') format('woff2'),
+    url('../../fonts/oswald/oswald-regular.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}

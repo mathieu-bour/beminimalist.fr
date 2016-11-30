@@ -45,19 +45,9 @@ class EarlyCodesTable extends Table
     {
         $validator
             ->integer('id')
-            ->allowEmpty('id', 'create');
-
-        $validator
-            ->allowEmpty('code');
-
-        $validator
-            ->dateTime('expire')
-            ->allowEmpty('expire');
-
-        $validator
-            ->integer('remaining_uses')
-            ->allowEmpty('remaining_uses');
-
+            ->allowEmpty('id', 'create')
+            //->dateTime('expire')
+            ->integer('remaining_uses');
         return $validator;
     }
 }
