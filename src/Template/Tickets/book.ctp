@@ -71,13 +71,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-6">
-                <?= $this->Form->input('early_code', [
-                    'placeholder' => 'Code de prévente',
-                    'label' => false
-                ]); ?>
-            </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <?= $this->Form->input('user_code', [
                     'placeholder' => 'Code du vendeur (facultatif)',
                     'label' => false
