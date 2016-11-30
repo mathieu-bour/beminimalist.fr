@@ -2,7 +2,16 @@
 
 <h1 class="page-title text-center">Commander ma place</h1>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-6 col-md-push-6">
+        <header class="header">
+            <h1>Minimalist</h1>
+            <h2>Gala d'hiver</h2>
+        </header>
+
+        <?= $this->Html->image('logo-black.png', ['class' => 'logo']); ?>
+    </div>
+
+    <div class="col-md-6 col-md-pull-6">
         <label class="control-label">Profil</label>
         <div class="row">
             <div class="col-md-6">
@@ -84,15 +93,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="col-md-6">
-        <header class="header">
-            <h1>Minimalist</h1>
-            <h2>Gala d'hiver</h2>
-        </header>
-
-        <?= $this->Html->image('logo-black.png', ['class' => 'logo']); ?>
     </div>
 </div>
 
