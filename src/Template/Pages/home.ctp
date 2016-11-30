@@ -40,7 +40,7 @@
 </div>
 
 <div class="text-center">
-    <a href="javascript:void(0)" class="btn btn-lg btn-disabled btn-ghost">Places bientôt disponibles !</a>
+    <a href="javascript:void(0)" class="btn btn-lg btn-disabled btn-ghost" id="btn-book">Places bientôt disponibles !</a>
 </div>
 
 <div class="socials">
