@@ -92,6 +92,10 @@
                     <button class="btn btn-success" name="type" value="perm">Permanence (10.00€)</button>
                 </div>
             </div>
+
+            <p style="margin-top: 30px;">La liste des permanences est disponible <a href="#" data-toggle="modal" data-target="#perms-modal">ici</a>.</p>
+
+            <?= $this->element('Modal/perms'); ?>
         </div>
     </div>
 </div>
