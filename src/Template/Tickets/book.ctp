@@ -50,7 +50,7 @@
 
         <?= $this->Form->input('address', [
             'placeholder' => 'Adresse',
-            'label' => 'Adresse postale'
+            'label' => 'Adresse postale \'nécessaire pour l\'envoie de votre place.'
         ]); ?>
         <div class="row">
             <div class="col-md-4">

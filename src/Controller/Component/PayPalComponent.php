@@ -27,9 +27,9 @@ class PayPalComponent extends Component
 
         $PayPalConfig = array(
             'Sandbox' => true,
-            'APIUsername' => 'vendeur_api1.pixelads.fr',
-            'APIPassword' => 'JUQ6JRL2EEHLL6H4',
-            'APISignature' => 'AFcWxV21C7fd0v3bYYYRCpSSRl31A0eQREb91gGLBHQgYBB-xzah4eYl',
+            'APIUsername' => 'contact_api1.beminimalist.fr',
+            'APIPassword' => 'NKRRGL5A7YKAFBXH',
+            'APISignature' => 'AFcWxV21C7fd0v3bYYYRCpSSRl31AljeqmHC8PJ9J.BXIkYe28Rs7dks',
             'APIVersion' => '97.0',
             'APISubject' => '',
             'PrintHeaders' => false,
