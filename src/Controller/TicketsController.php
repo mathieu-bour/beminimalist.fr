@@ -45,7 +45,7 @@ class TicketsController extends AppController
             $ticket = $this->Tickets->newEntity($this->request->data);
 
             if (empty($ticket->errors())) {
-                if ($now < $global) {
+                /*if ($now < $global) {
                     if (empty($ticket->early_code)) {
                         $this->Flash->error('Un code d\'accès est nécessaire !');
                         $this->redirect(['action' => 'book']);
@@ -64,7 +64,7 @@ class TicketsController extends AppController
                             $this->redirect(['action' => 'book']);
                         }
                     }
-                }
+                }*/
 
                 // Generate random barcode
                 $ticket->barcode = rand(100000000, 999999999);
