@@ -43,9 +43,9 @@ class PayPalComponent extends Component
     {
         return [
             [
-                'amt' => 10.5,
+                'amt' => 11,
                 'currencycode' => 'EUR',
-                'itemamt' => 10.5,
+                'itemamt' => 11,
                 'shippingamt' => 0,
                 'taxamt' => 0,
                 'desc' => 'MINIMALIST - Entrée au Gala d\'hiver 2016',
@@ -53,7 +53,7 @@ class PayPalComponent extends Component
                     [
                         'name' => 'MINIMALIST - Entrée au Gala d\'hiver 2016',
                         'desc' => 'MINIMALIST - Entrée au Gala d\'hiver 2016',
-                        'amt' => 10.5,
+                        'amt' => 11,
                         'qty' => '1',
                         'taxamt' => '0'
                     ]

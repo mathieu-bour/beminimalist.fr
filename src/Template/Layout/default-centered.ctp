@@ -17,7 +17,6 @@
         <div id="container">
             <div class="content">
                 <div class="container-fluid">
-                    <?= $this->Flash->render(); ?>
                     <?= $this->fetch('content'); ?>
                 </div>
             </div>

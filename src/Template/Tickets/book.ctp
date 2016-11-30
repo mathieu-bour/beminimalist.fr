@@ -1,6 +1,8 @@
 <?= $this->Form->create('Ticket', ['id' => 'ticket-book']); ?>
 
 <h1 class="page-title text-center">Commander ma place</h1>
+<?= $this->Flash->render(); ?>
+
 <div class="row">
     <div class="col-md-6 col-md-push-6">
         <header class="header">
