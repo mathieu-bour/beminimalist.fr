@@ -52,7 +52,8 @@
 
         <?= $this->Form->input('address', [
             'placeholder' => 'Adresse',
-            'label' => 'Adresse postale (nécessaire pour l\'envoi de votre place.)'
+            'label' => 'Adresse postale (<span style="color: red">nécessaire pour l\'envoi de votre place.</span>)',
+            'escape' => false
         ]); ?>
         <div class="row">
             <div class="col-md-4">
