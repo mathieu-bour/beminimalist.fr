@@ -5,14 +5,17 @@ class TicketsController extends AppController
 {
     public function index()
     {
-        $data = $this->DataTables->find('tickets', 'all', [
+        $data = $this->DataTables->find('Tickets', 'all', [
             'contain' => [
-                'Users'
+                //'Users'
             ],
             'conditions' => [
                 'id >' => 0 // Bug
             ]
         ]);
+
+        /*debug($data->toArray());
+        die();*/
 
         $this->set([
             'data' => $data,

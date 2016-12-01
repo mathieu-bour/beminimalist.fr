@@ -8,12 +8,12 @@
         <table class="table table-striped table-bordered table-hover dataTable">
             <thead>
                 <tr>
-                    <th>Code</th>
                     <th>Nom</th>
                     <th>Prénom</th>
                     <th>Date de naissance</th>
                     <th>Adresse e-mail</th>
                     <th>Adresse postale</th>
+                    <th>Code-barre</th>
                     <th>Type</th>
                     <th>Payé</th>
                     <th>Status</th>
@@ -35,26 +35,20 @@
         "ajax": "<?= \Cake\Routing\Router::url(['controller' => 'Tickets', 'action' => 'index']); ?>",
         "columns": [
             {
-                "name": "Ticket.barcode",
-                "data": "barcode",
-                "orderable": false
+                "name": "lastname",
+                "data": "lastname",
+                "orderable": true
             },
             {
-                "name": "Ticket.lastname",
-                "data": "lastname"
-            },
-            {
-                "name": "Ticket.firstname",
                 "data": "firstname"
             },
             {
-                "name": "Ticket.birthdate",
+                "name": "birthdate",
                 "render": function(data, type, row) {
                     return moment(row.birthdate).format('DD/MM/YYYY')
                 }
             },
             {
-                "name": "Ticket.email",
                 "data": "email"
             },
             {
@@ -64,22 +58,22 @@
                 "orderable": false
             },
             {
-                "name": "Ticket.type",
+                "data": "barcode",
+                "orderable": false
+            },
+            {
                 "data": "type"
             },
             {
-                "name": "Ticket.paid",
                 "data": "paid"
             },
             {
-                "name": "Ticket.state",
                 "data": "state"
             },
             {
-                "data": "User.firstname"
+                "data": "user_code"
             }
-        ],
-        "order": [[1, "asc"]]
+        ]
     });
 </script>
 <?= $this->end(); ?>

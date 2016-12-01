@@ -14,9 +14,11 @@
  */
 namespace App\Controller;
 
+use App\Controller\Component\SettingsComponent;
 use Cake\Controller\Controller;
 use Cake\Event\Event;
 use Cake\ORM\TableRegistry;
+use DataTables\Controller\Component\DataTablesComponent;
 
 /**
  * Application Controller
@@ -24,7 +26,8 @@ use Cake\ORM\TableRegistry;
  * Add your application-wide methods in the class below, your controllers
  * will inherit them.
  *
- * @link http://book.cakephp.org/3.0/en/controllers.html#the-app-controller
+ * @property SettingsComponent $Settings
+ * @property DataTablesComponent $DataTables
  */
 class AppController extends Controller
 {
