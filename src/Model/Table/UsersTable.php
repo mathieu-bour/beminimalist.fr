@@ -31,11 +31,11 @@ class UsersTable extends Table
         parent::initialize($config);
 
         $this->table('users');
-        $this->displayField('id');
-        $this->primaryKey('id');
+        $this->displayField('code');
+        $this->primaryKey('code');
 
         $this->hasMany('Tickets', [
-            'foreignKey' => 'user_code',
+            'foreignKey' => 'user_code'
         ]);
     }
 

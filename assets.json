@@ -28,13 +28,16 @@
       "/js/public/main.js"
     ],
     "fonts": {
-      "/plugins/font-awesome/fonts/fontawesome-webfont.{ttf,woff,woff2,eot,svg}": "/fonts/font-awesome/"
+      "/plugins/font-awesome/fonts/fontawesome-webfont.{ttf,woff,woff2,eot,svg}": "/fonts/font-awesome/",
+      "/plugins/bootstrap/fonts/glyphicons-halflings-regular.{ttf,woff,woff2,eot,svg}": "/fonts/glyphicons-halflings-regular/"
     }
   },
   "admin": {
     "css": [
       "/plugins/bootstrap/dist/css/bootstrap.css",
       "/plugins/font-awesome/css/font-awesome.css",
+      "/plugins/datatables.net-bs/css/dataTables.bootstrap.css",
+      "/plugins/datatables.net-responsive-bs/css/responsive.bootstrap.css",
       "/css/common/layouts.css",
       "/css/common/fonts.css",
       "/css/common/bootstrap-theme.css",
@@ -48,6 +51,11 @@
     "js": [
       "/plugins/jquery/dist/jquery.js",
       "/plugins/bootstrap/dist/js/bootstrap.js",
+      "/plugins/moment/moment.js",
+      "/plugins/datatables.net/js/jquery.dataTables.js",
+      "/plugins/datatables.net-bs/js/dataTables.bootstrap.js",
+      "/plugins/datatables.net-responsive/js/dataTables.responsive.js",
+      "/plugins/datatables.net-responsive-bs/js/responsive.bootstrap.js",
       "/js/admin/main.js"
     ]
   }

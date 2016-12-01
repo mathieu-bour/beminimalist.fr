@@ -5,9 +5,19 @@ class TicketsController extends AppController
 {
     public function index()
     {
-        $tickets = $this->paginate($this->Tickets);
-        $this->set(compact('tickets'));
-        $this->set('_serialize', ['tickets']);
+        $data = $this->DataTables->find('tickets', 'all', [
+            'contain' => [
+                'Users'
+            ],
+            'conditions' => [
+                'id >' => 0 // Bug
+            ]
+        ]);
+
+        $this->set([
+            'data' => $data,
+            '_serialize' => array_merge($this->viewVars['_serialize'], ['data'])
+        ]);
     }
 
     /**

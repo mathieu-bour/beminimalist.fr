@@ -5,11 +5,12 @@
 
     <div class="panel-body">
 
-        <table class="table">
+        <table class="table table-striped table-bordered table-hover dataTable">
             <thead>
                 <tr>
                     <th>Code</th>
                     <th>Nom</th>
+                    <th>Prénom</th>
                     <th>Date de naissance</th>
                     <th>Adresse e-mail</th>
                     <th>Adresse postale</th>
@@ -17,61 +18,68 @@
                     <th>Payé</th>
                     <th>Status</th>
                     <th>Vendeur</th>
-                    <th>Actions</th>
                 </tr>
             </thead>
 
             <tbody>
-                <?php $states = [
-                    'pending' => 'À imprimer',
-                    'printed' => 'Imprimé',
-                    'sent' => 'Envoyé'
-                ]; ?>
-
-                <?php foreach ($tickets as $ticket): ?>
-                    <tr>
-                        <td><?= $ticket->barcode; ?></td>
-                        <td><?= $ticket->firstname . ' ' . $ticket->lastname; ?></td>
-                        <td><?= $ticket->birthdate; ?></td>
-                        <td><?= $ticket->email; ?></td>
-                        <td><?= $ticket->address . ' ' . $ticket->zip_code . ' ' . $ticket->city; ?></td>
-                        <td><?= $ticket->type; ?></td>
-                        <td>
-                            <?php if ($ticket->paid): ?>
-                                <span class="label label-success"><i class="fa fa-check"></i></span>
-                            <?php else: ?>
-                                <span class="label label-danger"><i class="fa fa-times"></i></span>
-                            <?php endif; ?>
-                        </td>
-                        <td><?= $states[$ticket->state]; ?></td>
-                        <td>
-                            <?php if (!empty($ticket->user)): ?>
-                                <?= $ticket->user->firstname . ' ' . $ticket->user->lastname; ?>
-                            <?php else: ?>
-                                Aucun
-                            <?php endif; ?>
-                        </td>
-                        <td>
-                            <?= $this->Form->postLink(
-                                '<span class="label label-danger"><i class="fa fa-trash-o"></i></span>',
-                                ['action' => 'delete', $ticket->id],
-                                [
-                                    'escape' => false,
-                                    'confirm' => __('Supprimer le ticket #{0} ?', $ticket->barcode)
-                                ]
-                            ) ?>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
             </tbody>
         </table>
-
-        <div class="paginator">
-            <ul class="pagination">
-                <?= $this->Paginator->prev('< Précédents') ?>
-                <?= $this->Paginator->numbers() ?>
-                <?= $this->Paginator->next('Suivants >') ?>
-            </ul>
-        </div>
     </div>
 </div>
+
+<?php $this->start('script'); ?>
+<script>
+    $('.dataTable').DataTable({
+        "processing": true,
+        "serverSide": true,
+        "ajax": "<?= \Cake\Routing\Router::url(['controller' => 'Tickets', 'action' => 'index']); ?>",
+        "columns": [
+            {
+                "name": "Ticket.barcode",
+                "data": "barcode",
+                "orderable": false
+            },
+            {
+                "name": "Ticket.lastname",
+                "data": "lastname"
+            },
+            {
+                "name": "Ticket.firstname",
+                "data": "firstname"
+            },
+            {
+                "name": "Ticket.birthdate",
+                "render": function(data, type, row) {
+                    return moment(row.birthdate).format('DD/MM/YYYY')
+                }
+            },
+            {
+                "name": "Ticket.email",
+                "data": "email"
+            },
+            {
+                "render": function(data, type, row) {
+                    return row.address + " " + row.zip_code + " " + row.city
+                },
+                "orderable": false
+            },
+            {
+                "name": "Ticket.type",
+                "data": "type"
+            },
+            {
+                "name": "Ticket.paid",
+                "data": "paid"
+            },
+            {
+                "name": "Ticket.state",
+                "data": "state"
+            },
+            {
+                "data": "User.firstname"
+            }
+        ],
+        "order": [[1, "asc"]]
+    });
+</script>
+<?= $this->end(); ?>

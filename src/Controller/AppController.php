@@ -41,7 +41,10 @@ class AppController extends Controller
         'Modal' => [
             'className' => 'Bootstrap.BootstrapModal'
         ],
-        'Barcodes'
+        'Barcodes',
+        'DataTables' => [
+            'className' => 'DataTables.DataTables'
+        ]
     ];
 
     /**
@@ -60,6 +63,8 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadComponent('Settings');
+        $this->loadComponent('DataTables.DataTables');
+
         $this->set('settings', $this->Settings);
     }
 

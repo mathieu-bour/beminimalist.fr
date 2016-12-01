@@ -11,6 +11,7 @@ use Cake\ORM\Entity;
  * @property string $type
  * @property bool $paid
  * @property string $state
+ * @property int $user_id
  * @property string $user_code
  * @property string $firstname
  * @property string $lastname
@@ -20,6 +21,7 @@ use Cake\ORM\Entity;
  * @property int $zip_code
  * @property string $city
  * @property \Cake\I18n\Time $created
+ * @property User $user
  */
 class Ticket extends Entity
 {

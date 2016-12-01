@@ -38,9 +38,7 @@ class TicketsTable extends Table
 
         // Relations
         $this->belongsTo('Users', [
-            'className' => 'Users',
-            'foreignKey' => 'user_code',
-            'propertyName' => 'code'
+            'foreignKey' => 'user_code'
         ]);
 
         // Behaviors

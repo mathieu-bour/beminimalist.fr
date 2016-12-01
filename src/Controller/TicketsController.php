@@ -71,10 +71,10 @@ class TicketsController extends AppController
 
                 if ($this->Tickets->save($ticket)) {
                     // If an early case has been used
-                    if (!empty($earlyCode)) {
+                    /*if (!empty($earlyCode)) {
                         $earlyCode->remaining_uses--;
                         $this->EarlyCodes->save($earlyCode);
-                    }
+                    }*/
 
                     // Update tickets_left setting
                     $this->Settings->write('tickets_left', (int)$this->Settings->read('tickets_left') - 1);
@@ -87,7 +87,7 @@ class TicketsController extends AppController
                             $this->redirect($this->request->session()->read('SetExpressCheckoutResult.REDIRECTURL'));
                         }
                     } else {
-                        $this->redirect(['action' => 'success']);
+                        return $this->redirect(['controller' => 'tickets', 'action' => 'success']);
                     }
                 }
             } else {
@@ -112,6 +112,7 @@ class TicketsController extends AppController
                 $this->Tickets->save($ticket);
                 $this->request->session()->delete('ticket.id');
             } else {
+                $this->request->session()->delete('ticket.id');
                 $this->redirect('/');
             }
 

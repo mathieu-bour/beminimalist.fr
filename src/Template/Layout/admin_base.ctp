@@ -18,5 +18,6 @@
         <?= $this->fetch('content'); ?>
 
         <?= $this->Html->script('admin'); ?>
+        <?= $this->fetch('script'); ?>
     </body>
 </html>

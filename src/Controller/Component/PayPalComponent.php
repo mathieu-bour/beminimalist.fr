@@ -65,7 +65,7 @@ class PayPalComponent extends Component
     public function SetExpressCheckout()
     {
         $SECFields = [
-            'maxamt' => '4.5',
+            'maxamt' => '11',
             'returnurl' => Router::url(['controller' => 'Tickets', 'action' => 'success'], true),
             'cancelurl' => Router::url(['controller' => 'Tickets', 'action' => 'book'], true),
             'noshipping' => '1',
