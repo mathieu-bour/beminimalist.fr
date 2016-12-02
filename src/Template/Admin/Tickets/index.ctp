@@ -27,8 +27,7 @@
             {
                 "title": "Nom",
                 "name": "Tickets.lastname",
-                "data": "lastname",
-                "orderable": true
+                "data": "lastname"
             },
             {
                 "title": "Prénom",
@@ -40,12 +39,14 @@
                 "name": "Tickets.birthdate",
                 "render": function (data, type, row) {
                     return moment(row.birthdate).format('DD/MM/YYYY')
-                }
+                },
+                "searchable": false
             },
             {
                 "title": "Adresse e-mail",
                 "name": "Tickets.email",
-                "data": "email"
+                "data": "email",
+                "searchable": false
             },
             {
                 "title": "Adresse",
@@ -57,7 +58,8 @@
             },
             {
                 "title": "Type",
-                "data": "type"
+                "data": "type",
+                "searchable": false
             },
             {
                 "title": "Payé",
@@ -68,7 +70,8 @@
                     } else {
                         return '<span class="label label-danger"><i class="fa fa-fw fa-times"></i></span>'
                     }
-                }
+                },
+                "searchable": false
             },
             {
                 "title": "Status",
@@ -81,7 +84,8 @@
                     } else if(row.state == 'sent') {
                         return '<span class="label label-success">Envoyé</span>'
                     }
-                }
+                },
+                "searchable": false
             },
             {
                 "name": "Tickets.user_code",
