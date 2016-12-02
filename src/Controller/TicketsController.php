@@ -69,6 +69,20 @@ class TicketsController extends AppController
                 // Generate random barcode
                 $ticket->barcode = rand(100000000, 999999999);
 
+                // Get address coords
+                $prepAddr = str_replace(' ', '+', $ticket->address . ' ' . $ticket->zip_code . ' ' . $ticket->city);
+                $geocode = file_get_contents('https://maps.google.com/maps/api/geocode/json?address=' . $prepAddr . '&sensor=false&key=AIzaSyDDsLpHUkMF5buf-9tGWOTk1qdzmQblZaY');
+                $output = json_decode($geocode);
+
+                if (!empty($output->results)) {
+                    $ticket->latitude = $output->results[0]->geometry->location->lat;
+                    $ticket->longitude = $output->results[0]->geometry->location->lng;
+                } else {
+                    $ticket->latitude = $ticket->longitude = null;
+                }
+
+                $this->Tickets->save($ticket);
+
                 if ($this->Tickets->save($ticket)) {
                     // If an early case has been used
                     /*if (!empty($earlyCode)) {

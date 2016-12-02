@@ -1,13 +1,16 @@
 <?php
 namespace App\Controller\Admin;
 
+use Cake\Mailer\Email;
+
+
 class TicketsController extends AppController
 {
     public function index()
     {
         $data = $this->DataTables->find('Tickets', 'all', [
             'contain' => [
-                //'Users'
+                'Users'
             ],
             'conditions' => [
                 'id >' => 0 // Bug

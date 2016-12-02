@@ -20,6 +20,8 @@ use Cake\ORM\Entity;
  * @property string $address
  * @property int $zip_code
  * @property string $city
+ * @property float $latitude
+ * @property float $longitude
  * @property \Cake\I18n\Time $created
  * @property User $user
  */

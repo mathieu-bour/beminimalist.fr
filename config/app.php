@@ -180,14 +180,15 @@ return [
         'default' => [
             'className' => 'Mail',
             // The following keys are used in SMTP transports
-            'host' => 'ssl://web01.point-blank.fr',
-            'port' => 587,
+            'host' => 'web01.point-blank.fr',
+            'port' => 25,
             'timeout' => 30,
-            'username' => 'coontact@beminimalist.fr',
-            'password' => '14021997',
+            'username' => 'mathieu@beminimalist.fr',
+            'password' => 'salome3004',
             'client' => null,
             'tls' => null,
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
+            'log' => true
         ],
     ],
 
