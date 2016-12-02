@@ -63,6 +63,7 @@
             },
             {
                 "title": "Payé",
+                "name": "Tickets.paid",
                 "data": "paid",
                 "render": function(data, type, row) {
                     if(row.paid) {
@@ -75,6 +76,7 @@
             },
             {
                 "title": "Status",
+                "name": "Tickets.state",
                 "data": "state",
                 "render": function(data, type, row) {
                     if(row.state == 'pending') {
