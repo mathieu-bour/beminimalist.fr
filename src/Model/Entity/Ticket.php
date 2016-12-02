@@ -17,6 +17,7 @@ use Cake\ORM\Entity;
  * @property string $lastname
  * @property string $gender
  * @property \Cake\I18n\Time $birthdate
+ * @property string $email
  * @property string $address
  * @property int $zip_code
  * @property string $city

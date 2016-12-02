@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Model\Entity\Ticket;
 use Cake\Core\Configure;
 use Cake\I18n\Time;
+use Cake\Mailer\Email;
 use Cake\ORM\TableRegistry;
 use mikehaertl\wkhtmlto\Pdf;
 
@@ -81,14 +82,32 @@ class TicketsController extends AppController
                     $ticket->latitude = $ticket->longitude = null;
                 }
 
-                $this->Tickets->save($ticket);
-
                 if ($this->Tickets->save($ticket)) {
                     // If an early case has been used
                     /*if (!empty($earlyCode)) {
                         $earlyCode->remaining_uses--;
                         $this->EarlyCodes->save($earlyCode);
                     }*/
+
+                    // Send confirmation e-mail
+                    Email::configTransport('beminimalist', [
+                        'host' => 'web01.point-blank.fr',
+                        'port' => 25,
+                        'username' => 'contact@beminimalist.fr',
+                        'password' => '14021997',
+                        'className' => 'Smtp'
+                    ]);
+
+                    $email = new Email();
+                    $email->transport('beminimalist');
+                    $email
+                        ->viewVars(compact('ticket'))
+                        ->template('book')
+                        ->emailFormat('text')
+                        ->from(['contact@beminimalist.fr' => 'Minimalist'])
+                        ->to($ticket->email)
+                        ->subject('Gala d\'hiver 2016')
+                        ->send();
 
                     // Update tickets_left setting
                     $this->Settings->write('tickets_left', (int)$this->Settings->read('tickets_left') - 1);
