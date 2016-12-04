@@ -237,7 +237,7 @@ Plugin::load('CakePdf', ['bootstrap' => true]);
  */
 Configure::write('CakePdf', [
     'engine' => [
-        'className' => 'CakePdf.dompdf',
+        'className' => 'CakePdf.DomPdf',
         'options' => [
             'dpi' => 300,
             'isHtml5ParserEnabled' => true
