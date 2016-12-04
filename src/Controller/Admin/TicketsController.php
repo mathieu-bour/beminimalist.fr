@@ -61,11 +61,21 @@ class TicketsController extends AppController
                     break;
                 case 'finish':
                     // Step 3 - Finish:update tickets
-                    if(!empty($this->request->data['barcodesStr'])) {
+                    if (!empty($this->request->data['barcodesStr'])) {
                         $barcodes = explode(',', $this->request->data['barcodesStr']);
 
                         $this->Tickets->updateAll(['state' => 'printed'], ['barcode IN' => $barcodes]);
+
                         $this->Flash->success('Vous avez validé la procédure d\'impression pour ' . count($barcodes) . ' tickets !');
+
+
+                        $this->set(array_merge_recursive($this->viewVars['stats']), [
+                            'stats' => [
+                                'tickets' => [
+                                    'pending' => $this->Tickets->find('all')->where(['paid' => true, 'state' => 'pending'])->count()
+                                ]
+                            ]
+                        ]);
                     }
             }
         } // PDF generation
