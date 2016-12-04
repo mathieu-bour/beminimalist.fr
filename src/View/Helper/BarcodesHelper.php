@@ -2,8 +2,10 @@
 namespace App\View\Helper;
 
 use Cake\View\Helper\HtmlHelper;
+use chillerlan\QRCode\Output\QRImage;
+use chillerlan\QRCode\Output\QRImageOptions;
+use chillerlan\QRCode\QRCode;
 use Picqer\Barcode\BarcodeGeneratorPNG;
-use Endroid\QrCode\QrCode;
 
 class BarcodesHelper extends HtmlHelper
 {
@@ -25,20 +27,15 @@ class BarcodesHelper extends HtmlHelper
 
     public function qrcode($content, $options = [])
     {
-        $options = array_merge([
-            'padding' => 0,
-            'size' => 300
-        ], $options);
-        $qrCode = new QrCode();
-        $qrCode
-            ->setText($content)
-            ->setSize($options['size'])
-            ->setPadding($options['padding'])
-            ->setErrorCorrection('high')
-            ->setForegroundColor(['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0])
-            ->setBackgroundColor(['r' => 255, 'g' => 255, 'b' => 255, 'a' => 1])
-            ->setImageType(QrCode::IMAGE_TYPE_PNG);
-        return $this->_pngBase64($qrCode->get(), $options);
+        // QRCode options
+        $outputOptions = new QRImageOptions;
+        $outputOptions->marginSize = 0;
+        $outputOptions->pixelSize = 10;
+        $outputInterface = new QRImage($outputOptions);
+
+        $qrcode = new QRCode($content, $outputInterface);
+
+        return $this->image($qrcode->output(), $options);
 
     }
 }

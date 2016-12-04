@@ -13,10 +13,10 @@
     "holt59/cakephp3-bootstrap-helpers": "dev-master",
     "angelleye/paypal-php-library": "2.0.*",
     "picqer/php-barcode-generator": "^0.2.1",
-    "endroid/qrcode": "^1.7",
     "fheider/cakephp-datatables": "dev-master",
     "friendsofcake/CakePdf": "^3.2",
-    "dompdf/dompdf": "dev-master"
+    "dompdf/dompdf": "dev-master",
+    "chillerlan/php-qrcode": "dev-master"
   },
   "require-dev": {
     "psy/psysh": "@stable",
