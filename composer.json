@@ -12,10 +12,11 @@
     "cakephp/plugin-installer": "*",
     "holt59/cakephp3-bootstrap-helpers": "dev-master",
     "angelleye/paypal-php-library": "2.0.*",
-    "mikehaertl/phpwkhtmltopdf": "^2.2",
     "picqer/php-barcode-generator": "^0.2.1",
     "endroid/qrcode": "^1.7",
-    "fheider/cakephp-datatables": "dev-master"
+    "fheider/cakephp-datatables": "dev-master",
+    "friendsofcake/CakePdf": "^3.2",
+    "dompdf/dompdf": "dev-master"
   },
   "require-dev": {
     "psy/psysh": "@stable",

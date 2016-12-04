@@ -47,7 +47,8 @@
     "css_replace": {
       "../fonts/glyphicons-halflings-regular": "../fonts/glyphicons-halflings-regular/glyphicons-halflings-regular",
       "../fonts/fontawesome-webfont": "../fonts/font-awesome/fontawesome-webfont",
-      "../../fonts/panama-light/panama-light": "../fonts/panama-light/panama-light"},
+      "../../fonts/panama-light/panama-light": "../fonts/panama-light/panama-light"
+    },
     "js": [
       "/plugins/jquery/dist/jquery.js",
       "/plugins/bootstrap/dist/js/bootstrap.js",
@@ -58,5 +59,13 @@
       "/plugins/datatables.net-responsive-bs/js/responsive.bootstrap.js",
       "/js/admin/main.js"
     ]
+  },
+  "ticket": {
+    "css": [
+      "/css/pdf/ticket.css"
+    ],
+    "css_replace": {
+      "../../img/ticket-third-test.jpg": "../img/ticket-third-test.jpg"
+    }
   }
 }

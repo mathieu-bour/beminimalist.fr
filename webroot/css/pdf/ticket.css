@@ -1,34 +1,90 @@
 html, body {
     margin: 0;
-    padding: 0;
+    font-family: Helvetica, sans-serif;
 }
 .tickets {
+    font-size: 0;
+}
+    .ticket {
+        position: relative;
+        height: 9.9cm;
+        background: url('../../img/ticket-third-test.jpg') no-repeat .5cm .5cm;
+    }
+        .qrcode {
+            position: absolute;
+            left: 17.5cm;
+            top: 4cm;
+            width: 2cm;
+            height: 2cm;
+        }
+        .barcode {
+            position: absolute;
+            left: 17.5cm;
+            top: 6.5cm;
+            width: 2cm;
+            height: 1cm;
+        }
+        .barcode-text {
+            display: block;
+            position: absolute;
+            width: 2cm;;
+            height: .5cm;
+            left: 17.5cm;
+            top: 7.5cm;
+            font-size: .2cm;
+            line-height: .3cm;
+            text-align: center;
+        }
 
+.tickets-table-container {
+    page-break-before: always;
+    padding: .5cm;
 }
-.ticket {
-    position: relative;
-    height: 292px;
-    background: url('../../img/ticket-third.jpg');
-    background-size: cover;
+    .tickets-table-title {
+        margin-bottom: 1cm;
+        font-size: .6cm;
+        font-weight: 400;
+        text-align: center;
+    }
+    .tickets-table {
+        width: 100%;
+        font-size: .3cm;
+    }
+    .tickets-table th {
+        text-align: left;
+    }
+
+th {
+    text-align: left;
 }
-.qrcode {
-    position: absolute;
-    right: 50px;
-    bottom: 90px;
-    width: 70px;
+.table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
 }
-.barcode {
-    position: absolute;
-    right: 50px;
-    bottom: 40px;
-    width: 70px;
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
 }
-.code {
-    position: absolute;
-    right: 50px;
-    bottom: 20px;
-    width: 70px;
-    line-height: 20px;
-    font-size: 6px;
-    text-align: center;
+.table > thead > tr > th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #ddd;
+}
+.table > caption + thead > tr:first-child > th,
+.table > colgroup + thead > tr:first-child > th,
+.table > thead:first-child > tr:first-child > th,
+.table > caption + thead > tr:first-child > td,
+.table > colgroup + thead > tr:first-child > td,
+.table > thead:first-child > tr:first-child > td {
+    border-top: 0;
+}
+.table > tbody + tbody {
+    border-top: 2px solid #ddd;
 }

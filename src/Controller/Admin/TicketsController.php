@@ -6,6 +6,9 @@ use Cake\Mailer\Email;
 
 class TicketsController extends AppController
 {
+    /**
+     * Index all tickets
+     */
     public function index()
     {
         $data = $this->DataTables->find('Tickets', 'all', [
@@ -17,13 +20,70 @@ class TicketsController extends AppController
             ]
         ]);
 
-        /*debug($data->toArray());
-        die();*/
-
         $this->set([
             'data' => $data,
             '_serialize' => array_merge($this->viewVars['_serialize'], ['data'])
         ]);
+    }
+
+    /**
+     * Index tickets to print
+     */
+    public function print()
+    {
+        if (
+            (
+                $this->request->is('json') ||
+                $this->request->is('post')
+            ) &&
+            !empty($this->request->data['action'])
+        ) {
+            switch ($this->request->data['action']) {
+                case 'validate':
+                    // Step 1 - Validate: find the tickets barcodes
+                    if (!empty($this->request->data['count'])) {
+                        $barcodes = $this->Tickets->find('list', [
+                            'keyField' => 'id',
+                            'valueField' => 'barcode',
+                            'conditions' => [
+                                'paid' => true,
+                                'state' => 'pending'
+                            ],
+                            'limit' => $this->request->data['count']
+                        ])->toArray();
+
+                        $barcodesStr = implode(',', array_values($barcodes));
+                        $this->set([
+                            'barcodesStr' => $barcodesStr,
+                            '_serialize' => ['barcodesStr']
+                        ]);
+                    }
+                    break;
+                case 'finish':
+                    // Step 3 - Finish:update tickets
+                    if(!empty($this->request->data['barcodesStr'])) {
+                        $barcodes = explode(',', $this->request->data['barcodesStr']);
+
+                        $this->Tickets->updateAll(['state' => 'printed'], ['barcode IN' => $barcodes]);
+                        $this->Flash->success('Vous avez validé la procédure d\'impression pour ' . count($barcodes) . ' tickets !');
+                    }
+            }
+        } // PDF generation
+        else if ($this->request->params['_ext'] == 'pdf') {
+            $codes = explode(',', $this->request->query['codes']);
+
+            if (!empty($codes)) {
+                $this->viewBuilder()->layout('tickets');
+
+                $tickets = $this->Tickets->find('all', [
+                    'conditions' => [
+                        'barcode IN' => $codes
+                    ]
+                ])->toArray();
+
+                $this->set(compact('tickets'));
+            }
+        }
     }
 
     /**
@@ -44,23 +104,5 @@ class TicketsController extends AppController
         }
 
         $this->redirect(['action' => 'index']);
-    }
-
-    public function print()
-    {
-        $codes = explode(',', $this->request->query['codes']);
-
-        if (!empty($codes)) {
-            $this->viewBuilder()->layout('pdf_ticket');
-
-            $tickets = $this->Tickets->find('all', [
-                'conditions' => [
-                    'barcode IN' => $codes
-                ]
-            ])->toArray();
-
-            //$this->response->type('pdf');
-            $this->set(compact('tickets'));
-        }
     }
 }

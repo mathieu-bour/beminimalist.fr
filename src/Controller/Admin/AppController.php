@@ -30,15 +30,15 @@ class AppController extends \App\Controller\AppController
         $this->viewBuilder()->layout('admin');
 
         $this->Tickets = TableRegistry::get('Tickets');
-        $counters = [
-            'Tickets' => [
-                'all' => $this->Tickets->find('all')->count(),
-                'to_print' => $this->Tickets->find('all')->where(['paid' => 1, 'state' => 'TO_PRINT'])->count(),
-                'packaged' => $this->Tickets->find('all')->where(['paid' => 1, 'state' => 'PACKAGED'])->count(),
-            ]
-        ];
-
-        $this->set(compact('counters'));
+        $this->set([
+            'stats' => [
+                'tickets' => [
+                    'total' => $this->Tickets->find('all')->count(),
+                    'paid' => $this->Tickets->find('all')->where(['paid' => true])->count(),
+                    'pending' => $this->Tickets->find('all')->where(['paid' => true, 'state' => 'pending'])->count()
+                ]
+            ],
+        ]);
 
         return parent::beforeFilter($event);
     }

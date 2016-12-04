@@ -1,0 +1,9 @@
+/**
+ * ticket.css
+ * ==========
+ *
+ * by Mathieu Bour
+ *
+ * Build md5: 5d5836c833c5afeb5c70fdcf7f420eae
+ */
+body,html{margin:0;font-family:Helvetica,sans-serif}.tickets{font-size:0}.ticket{position:relative;height:9.9cm;background:url(../img/ticket-third-test.jpg) .5cm .5cm no-repeat}.barcode,.barcode-text,.qrcode{position:absolute;width:2cm;left:17.5cm}.qrcode{top:4cm;height:2cm}.barcode{top:6.5cm;height:1cm}.barcode-text{display:block;height:.5cm;top:7.5cm;font-size:.2cm;line-height:.3cm;text-align:center}.tickets-table-container{page-break-before:always;padding:.5cm}.tickets-table-title{margin-bottom:1cm;font-size:.6cm;font-weight:400;text-align:center}.tickets-table{width:100%;font-size:.3cm}.tickets-table th,th{text-align:left}.table{width:100%;max-width:100%;margin-bottom:20px}.table>tbody>tr>td,.table>tbody>tr>th,.table>tfoot>tr>td,.table>tfoot>tr>th,.table>thead>tr>td,.table>thead>tr>th{padding:8px;line-height:1.42857143;vertical-align:top;border-top:1px solid #ddd}.table>thead>tr>th{vertical-align:bottom;border-bottom:2px solid #ddd}.table>caption+thead>tr:first-child>td,.table>caption+thead>tr:first-child>th,.table>colgroup+thead>tr:first-child>td,.table>colgroup+thead>tr:first-child>th,.table>thead:first-child>tr:first-child>td,.table>thead:first-child>tr:first-child>th{border-top:0}.table>tbody+tbody{border-top:2px solid #ddd}

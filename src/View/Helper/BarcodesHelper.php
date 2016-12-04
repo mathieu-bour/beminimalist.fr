@@ -27,7 +27,7 @@ class BarcodesHelper extends HtmlHelper
     {
         $options = array_merge([
             'padding' => 0,
-            'size' => 70
+            'size' => 300
         ], $options);
         $qrCode = new QrCode();
         $qrCode
@@ -35,7 +35,7 @@ class BarcodesHelper extends HtmlHelper
             ->setSize($options['size'])
             ->setPadding($options['padding'])
             ->setErrorCorrection('high')
-            ->setForegroundColor(['r' => 0, 'g' => 0, 'b' => 0, 'a' => 1])
+            ->setForegroundColor(['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0])
             ->setBackgroundColor(['r' => 255, 'g' => 255, 'b' => 255, 'a' => 1])
             ->setImageType(QrCode::IMAGE_TYPE_PNG);
         return $this->_pngBase64($qrCode->get(), $options);

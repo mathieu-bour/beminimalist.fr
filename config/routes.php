@@ -43,21 +43,22 @@ use Cake\Routing\Route\DashedRoute;
  */
 Router::defaultRouteClass(DashedRoute::class);
 
+// Extensions
+Router::extensions(['pdf']);
+
+// Public routes
 Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/', ['controller' => 'Pages', 'action' => 'home']);
     $routes->connect('/book', ['controller' => 'Tickets', 'action' => 'book']);
     $routes->fallbacks(DashedRoute::class);
 });
 
-Router::prefix('admin', function ($routes) {
+// Admin routes
+Router::prefix('admin', function (RouteBuilder $routes) {
     $routes->connect('/', ['controller' => 'Pages', 'action' => 'dashboard']);
     $routes->connect('/wizard', ['controller' => 'Tickets', 'action' => 'wizard', 'init']);
     $routes->connect('/wizard/:step', ['controller' => 'Tickets', 'action' => 'wizard'], ['pass' => ['step']]);
     $routes->fallbacks(DashedRoute::class);
 });
 
-/**
- * Load all plugin routes.  See the Plugin documentation on
- * how to customize the loading of plugin routes.
- */
 Plugin::routes();

@@ -57,14 +57,11 @@ class PagesController extends AppController
         die();*/
 
         $this->set([
-            'stats' => [
+            'stats' => array_merge_recursive($this->viewVars['stats'], [
                 'tickets' => [
-                    'total' => $this->Tickets->find('all')->count(),
-                    'paid' => $this->Tickets->find('all')->where(['paid' => true])->count(),
-                    'pending' => $this->Tickets->find('all')->where(['paid' => true, 'state' => 'pending'])->count(),
                     'printed' => $this->Tickets->find('all')->where(['paid' => true, 'state' => 'printed'])->count()
                 ]
-            ],
+            ]),
             'charts' => [
                 'map' => $this->_getTicketsCoordinates()
             ]

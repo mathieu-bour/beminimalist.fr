@@ -8,8 +8,15 @@
         </li>
         <li>
             <?= $this->Html->link(
-                'Tickets <span class="badge pull-right">' . $counters['Tickets']['all'] . '</span>',
+                'Tickets <span class="badge pull-right">' . $stats['tickets']['total'] . '</span>',
                 ['controller' => 'Tickets', 'action' => 'index'],
+                ['escape' => false]
+            ); ?>
+        </li>
+        <li>
+            <?= $this->Html->link(
+                'Tickets à imprimer <span class="badge pull-right">' . $stats['tickets']['pending'] . '</span>',
+                ['controller' => 'Tickets', 'action' => 'print'],
                 ['escape' => false]
             ); ?>
         </li>

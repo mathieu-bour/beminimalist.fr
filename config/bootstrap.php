@@ -222,6 +222,32 @@ if (Configure::read('debug')) {
     Plugin::load('DebugKit', ['bootstrap' => true]);
 }
 
+
+/*
+ * Load plugins
+ */
 Plugin::load('Migrations');
 Plugin::load('Bootstrap');
 Plugin::load('DataTables', ['bootstrap' => false, 'routes' => false]);
+Plugin::load('CakePdf', ['bootstrap' => true]);
+
+
+/*
+ * CakePdf configuration
+ */
+Configure::write('CakePdf', [
+    'engine' => [
+        'className' => 'CakePdf.dompdf',
+        'options' => [
+            'dpi' => 300,
+            'isHtml5ParserEnabled' => true
+        ]
+    ],
+    'margin' => [
+        'bottom' => 0,
+        'left' => 0,
+        'right' => 0,
+        'top' => 0
+    ],
+    'download' => false
+]);
