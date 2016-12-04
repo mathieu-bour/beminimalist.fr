@@ -65,8 +65,8 @@
                 "title": "Payé",
                 "name": "Tickets.paid",
                 "data": "paid",
-                "render": function(data, type, row) {
-                    if(row.paid) {
+                "render": function (data, type, row) {
+                    if (row.paid) {
                         return '<span class="label label-success"><i class="fa fa-fw fa-check"></i></span>'
                     } else {
                         return '<span class="label label-danger"><i class="fa fa-fw fa-times"></i></span>'
@@ -78,12 +78,12 @@
                 "title": "Status",
                 "name": "Tickets.state",
                 "data": "state",
-                "render": function(data, type, row) {
-                    if(row.state == 'pending') {
+                "render": function (data, type, row) {
+                    if (row.state == 'pending') {
                         return '<span class="label label-danger">En attente</span>'
-                    } else if(row.state == 'printed') {
+                    } else if (row.state == 'printed') {
                         return '<span class="label label-warning">Imprimé</span>'
-                    } else if(row.state == 'sent') {
+                    } else if (row.state == 'sent') {
                         return '<span class="label label-success">Envoyé</span>'
                     }
                 },
@@ -99,6 +99,14 @@
                         return 'Aucun';
                     }
                 }
+            },
+            {
+                "title": "Actions",
+                "render": function (data, type, row) {
+                    return '<form method="post" action="<?= \Cake\Routing\Router::url(['action' => 'delete']) ?>/' + row.id + '"><button class="btn btn-xs btn-danger btn-action"><i class="fa fa-trash-o"></i></button></form>'
+                },
+                "orderable": false,
+                "searchable": false
             }
         ],
         "order": [[1, 'asc']]

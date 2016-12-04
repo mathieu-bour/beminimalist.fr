@@ -1,5 +1,6 @@
 ;(function ($, window, document) {
-    // Printing wizard
+    /* = Printing wizard
+     * =========================================================== */
     var $validateBtn = $('#ticket-print-validate-btn');
     var $printBtn = $('#ticket-print-print-btn');
     var $finishBtn = $('#ticket-print-finish-btn');
