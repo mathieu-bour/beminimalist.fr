@@ -12,7 +12,7 @@
                 sur "Valider".</p>
 
             <h4>Étape 2</h4>
-            <p>Cliquer sur "Imprimer", puis imprimé le document PDF ouvert dans l'onglet créé.</p>
+            <p>Cliquer sur "Imprimer", puis imprimer le document PDF ouvert dans l'onglet créé.</p>
 
             <h4>Étape 3</h4>
             <p>Une fois les tickets imprimés, cliquer sur "Terminer" pour confirmer l'impression.</p>
