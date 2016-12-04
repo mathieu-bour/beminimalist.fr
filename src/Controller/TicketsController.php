@@ -17,6 +17,16 @@ use mikehaertl\wkhtmlto\Pdf;
  */
 class TicketsController extends AppController
 {
+    public function _engagePayPalProcess($ticketId)
+    {
+        $this->loadComponent('PayPal');
+        // PayPal process
+        if ($this->PayPal->SetExpressCheckout()) {
+            $this->request->session()->write('ticket.id', $ticketId);
+            $this->redirect($this->request->session()->read('SetExpressCheckoutResult.REDIRECTURL'));
+        }
+    }
+
     /**
      * Book method
      */
@@ -126,6 +136,23 @@ class TicketsController extends AppController
             } else {
                 $this->Flash->error('Veuillez vérifier les informations soumises ; tous les champs sont obligatoires, excepté le code vendeur !');
             }
+        }
+    }
+
+    public function check()
+    {
+        if ($this->request->is('post')) {
+            if (!empty($this->request->data['email'])) {
+                $tickets = $this->Tickets->find('all')->where(['email' => $this->request->data['email']]);
+                $this->set(compact('tickets'));
+            } else if (!empty($this->request->data['id'])) {
+                if($this->Tickets->exists(['id' => $this->request->data['id']])) {
+                    $this->_engagePayPalProcess($this->request->data['id']);
+                }
+            }
+        } else {
+            $this->viewBuilder()->layout('admin_centred');
+            $this->render('check_email');
         }
     }
 
