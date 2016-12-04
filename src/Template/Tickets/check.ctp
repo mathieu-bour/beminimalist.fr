@@ -32,10 +32,12 @@
                             <button class="btn">Paiement PayPal effectué</button>
                         <?php endif; ?>
                     <?php else: ?>
-                        <button class="btn btn-success">Paiement lors d'une permanence</button>
+                        <button class="btn btn-success" data-toggle="modal" data-target="#perms-modal">Paiement lors d'une permanence</button>
                     <?php endif; ?>
                 </td>
             </tr>
         <?php endforeach; ?>
     </tbody>
 </table>
+
+<?= $this->element('Modal/perms'); ?>
