@@ -14,6 +14,12 @@ use Cake\ORM\TableRegistry;
  */
 class AppController extends \App\Controller\AppController
 {
+    public  $helpers = [
+        'DataTables' => [
+            'className' => 'DataTables.DataTables'
+        ]
+    ];
+
     public function beforeFilter(Event $event)
     {
         $this->loadComponent('Auth', [

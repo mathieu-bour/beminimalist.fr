@@ -80,6 +80,7 @@ class TicketsController extends AppController
             }
         } // PDF generation
         else if ($this->request->params['_ext'] == 'pdf') {
+
             $codes = explode(',', $this->request->query['codes']);
 
             if (!empty($codes)) {

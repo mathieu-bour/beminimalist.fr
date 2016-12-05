@@ -11,20 +11,58 @@ use mikehaertl\wkhtmlto\Pdf;
 /**
  * Tickets Controller
  *
+ * @author Mathieu Bour <mathieu.tin.bour@gmail.com>
  *
  * @property \App\Model\Table\TicketsTable $Tickets
  * @property \App\Controller\Component\PayPalComponent $PayPal
  */
 class TicketsController extends AppController
 {
-    public function _engagePayPalProcess($ticketId)
+    /**
+     * Engage a PayPal payment
+     * @param int $ticketId the ticket id
+     * @return void
+     */
+    protected function _engagePayPalProcess(int $ticketId): void
     {
-        $this->loadComponent('PayPal');
+        $this->loadComponent('PayPal'); // Load PayPal
+
         // PayPal process
         if ($this->PayPal->SetExpressCheckout()) {
             $this->request->session()->write('ticket.id', $ticketId);
             $this->redirect($this->request->session()->read('SetExpressCheckoutResult.REDIRECTURL'));
+        } else {
+            $this->Flash->error('Problème lors de la génération du lien PayPal');
         }
+    }
+
+    /**
+     * Determine if the user is allowed to book a ticket
+     * @return bool
+     */
+    protected function _canBook(): bool {
+        $now = new Time();
+        $prebookDate = new Time($this->Settings->read('prebook_opening_date'));
+        $bookDate = new Time($this->Settings->read('book_opening_date'));
+
+        // Before prebook opening date: no access
+        if($now < $prebookDate) {
+            $this->Flash->error('La billeterie n\'est pas encore ouverte !');
+            return false;
+        }
+
+        // If all tickets are already booked
+        if ((int)$this->Settings->read('tickets_left') <= 0) {
+            $this->Flash->error('Tous les tickets ont été vendus !');
+            return false;
+        }
+
+        // After prebook opening date but before public opening date: access with code only
+        if ($now > $prebookDate && $now < $bookDate) {
+            $this->set(['preBooking', true]);
+        }
+
+        return true;
     }
 
     /**
@@ -56,26 +94,6 @@ class TicketsController extends AppController
             $ticket = $this->Tickets->newEntity($this->request->data);
 
             if (empty($ticket->errors())) {
-                /*if ($now < $global) {
-                    if (empty($ticket->early_code)) {
-                        $this->Flash->error('Un code d\'accès est nécessaire !');
-                        $this->redirect(['action' => 'book']);
-                    } else {
-                        $this->EarlyCodes = TableRegistry::get('EarlyCodes');
-                        $earlyCode = $this->EarlyCodes->find('all')->where(['code' => $ticket->early_code])->first();
-
-                        if (empty($earlyCode)) {
-                            $this->Flash->error('Ce code n\'existe pas');
-                            $this->redirect(['action' => 'book']);
-                        } else if (new Time($earlyCode->expire) < $now) {
-                            $this->Flash->error('Ce code a expiré');
-                            $this->redirect(['action' => 'book']);
-                        } else if ($earlyCode->remaining_uses == 0) {
-                            $this->Flash->error('Ce code a attenit sa limite d\'utilisation');
-                            $this->redirect(['action' => 'book']);
-                        }
-                    }
-                }*/
 
                 // Generate random barcode
                 $ticket->barcode = rand(100000000, 999999999);
