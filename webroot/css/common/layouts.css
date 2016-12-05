@@ -11,3 +11,10 @@
         left: 50%;
         transform: translate(-50%, -50%);
     }
+
+.layout-centred #container > .panel {
+    min-width: 400px;
+}
+.layout-centred #container > .panel:last-child {
+    margin-bottom: 0;
+}

@@ -50,14 +50,14 @@ Router::extensions(['pdf']);
 Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/', ['controller' => 'Pages', 'action' => 'home']);
     $routes->connect('/book', ['controller' => 'Tickets', 'action' => 'book']);
+    $routes->connect('/check', ['controller' => 'Tickets', 'action' => 'check']);
     $routes->fallbacks(DashedRoute::class);
 });
 
 // Admin routes
 Router::prefix('admin', function (RouteBuilder $routes) {
     $routes->connect('/', ['controller' => 'Pages', 'action' => 'dashboard']);
-    $routes->connect('/wizard', ['controller' => 'Tickets', 'action' => 'wizard', 'init']);
-    $routes->connect('/wizard/:step', ['controller' => 'Tickets', 'action' => 'wizard'], ['pass' => ['step']]);
+    $routes->connect('/login', ['controller' => 'Users', 'action' => 'login']);
     $routes->fallbacks(DashedRoute::class);
 });
 

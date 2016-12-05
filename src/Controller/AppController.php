@@ -36,11 +36,11 @@ class AppController extends Controller
     ];
 
     /**
-     * Initialization hook
+     * Initialization
      *
      * @return void
      */
-    public function initialize(): void
+    public function initialize()
     {
         parent::initialize();
 
@@ -52,6 +52,8 @@ class AppController extends Controller
         $this->set('settings', $this->Settings);
     }
 
+    /* = Hooks
+     * =========================================================== */
     /**
      * Before filter hook
      *
@@ -90,6 +92,8 @@ class AppController extends Controller
         }
     }
 
+    /* = Utils
+     * =========================================================== */
     /**
      * Get a view var (return null if the viewVar does not exist)
      * @param string $key the viewVar key
@@ -105,25 +109,27 @@ class AppController extends Controller
     }
 
     /**
-     * Set the page title (accessible in viewVars)
-     * @param string $title the page title
-     * @return void
-     */
-    public function setTitle(string $title): void
-    {
-        $this->set(compact('title'));
-    }
-
-    /**
      * Load a helper
      * @param string|array $helper
      * @return void
      */
-    public function loadHelper($helper): void {
+    public function loadHelper($helper) {
         if(is_string($helper)) {
             $helper = [$helper];
         }
 
         $this->viewBuilder()->helpers([$helper]);
+    }
+
+    /* = View methods
+     * =========================================================== */
+    /**
+     * Set the page title (accessible in viewVars)
+     * @param string $title the page title
+     * @return void
+     */
+    public function setTitle(string $title)
+    {
+        $this->set(compact('title'));
     }
 }

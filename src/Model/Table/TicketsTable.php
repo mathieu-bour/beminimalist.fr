@@ -1,10 +1,14 @@
 <?php
 namespace App\Model\Table;
 
-use Cake\ORM\Query;
-use Cake\ORM\RulesChecker;
+use App\Model\Entity\Ticket;
+use Cake\Event\Event;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Exception;
+use Geocoder\Model\Address;
+use Geocoder\Provider\GoogleMaps;
+use Http\Adapter\Guzzle6\Client;
 
 /**
  * Tickets Model
@@ -87,5 +91,43 @@ class TicketsTable extends Table
             ->allowEmpty('created');
 
         return $validator;
+    }
+
+    /* = Callbacks
+     * =========================================================== */
+    /**
+     * @param Event $event
+     * @param Ticket $entity
+     * @param array|\ArrayObject $options
+     * @param $operation
+     */
+    public function beforeRules(Event $event, Ticket $entity, $options, $operation)
+    {
+        // Generate barcode
+        if (empty($entity->barcode)) {
+            $entity->set('barcode', rand(100000000, 999999999));
+        }
+
+        // Generate clean address
+        if (!empty($entity->address) && !empty($entity->zip_code) && !empty($entity->city)) {
+            $rawAddress = $entity->address . ' ' . $entity->zip_code . ' ' . $entity->city;
+
+            try {
+                $adapter = new Client();
+                $geocoder = new GoogleMaps($adapter, 'fr_FR', 'France', true, 'AIzaSyDDsLpHUkMF5buf-9tGWOTk1qdzmQblZaY');
+                $result = $geocoder->limit(1)->geocode($rawAddress);
+                $array = iterator_to_array($result);
+                $address = reset($array);
+
+                /** @var Address $address */
+                $entity->set([
+                    'address' => trim($address->getStreetNumber() . ' ' . $address->getStreetName()),
+                    'zip_code' => $address->getPostalCode(),
+                    'city' => $address->getLocality()
+                ]);
+            } catch (Exception $e) {
+                // Do something when lookup fail
+            }
+        }
     }
 }

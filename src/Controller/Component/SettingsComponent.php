@@ -34,9 +34,8 @@ class SettingsComponent extends Component
 
     /**
      * Reload the cached settings configuration
-     * @return void
      */
-    public function reload(): void
+    public function reload()
     {
         $this->cached = $this->SettingsTable->find('list', [
             'keyField' => 'key',
@@ -54,7 +53,7 @@ class SettingsComponent extends Component
      * @param mixed $failValue the value to return in case of fail (entry does not exist)
      * @return mixed|null
      */
-    public function read($key, $failValue = null): mixed
+    public function read($key, $failValue = null)
     {
         return !empty($this->cached[$key]) ? $this->cached[$key] : $failValue;
     }
@@ -79,6 +78,6 @@ class SettingsComponent extends Component
 
         $this->reload(); // Reload settings
 
-        return $result;
+        return (bool)$result;
     }
 }

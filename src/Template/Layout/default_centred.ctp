@@ -1,4 +1,4 @@
-<?php $this->extend('admin_base'); ?>
+<?php $this->extend('base'); ?>
 
 <div class="layout-centred">
     <div id="container">

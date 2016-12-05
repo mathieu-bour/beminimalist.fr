@@ -12,7 +12,7 @@
             </div>
             <div class="panel-body">
                 <?= $this->Form->create(null, ['url' => ['controller' => 'Settings', 'action' => 'update']]); ?>
-                <?= $this->Form->input('opening_early', [
+                <?= $this->Form->input('prebook_opening_date', [
                     'label' => 'Ouverture aux préventes',
                     'value' => $settings->read('opening_early'),
                     'append' => [
@@ -22,7 +22,7 @@
                 <?= $this->Form->end(); ?>
 
                 <?= $this->Form->create(null, ['url' => ['controller' => 'Settings', 'action' => 'update']]); ?>
-                <?= $this->Form->input('opening_early', [
+                <?= $this->Form->input('book_opening_date', [
                     'label' => 'Ouverture générale',
                     'value' => $settings->read('opening_global'),
                     'append' => [

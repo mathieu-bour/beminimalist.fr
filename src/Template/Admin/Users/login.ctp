@@ -1,6 +1,7 @@
-<div class="panel user-login-box">
+<div class="panel">
     <div class="panel-heading">
         <h1 class="text-center">Minimalist</h1>
+        <h4 class="text-center">Administration</h4>
     </div>
 
     <div class="panel-body">

@@ -16,7 +16,10 @@
     "fheider/cakephp-datatables": "dev-master",
     "friendsofcake/CakePdf": "^3.2",
     "dompdf/dompdf": "dev-master",
-    "chillerlan/php-qrcode": "dev-master"
+    "chillerlan/php-qrcode": "dev-master",
+    "willdurand/geocoder": "dev-master",
+    "php-http/guzzle6-adapter": "^1.1",
+    "php-http/message": "^1.4"
   },
   "require-dev": {
     "psy/psysh": "@stable",

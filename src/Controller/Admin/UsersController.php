@@ -12,7 +12,7 @@ class UsersController extends AppController
      * =========================================================== */
     public function login()
     {
-        $this->viewBuilder()->layout('admin_centred');
+        $this->viewBuilder()->layout('default_centred');
 
         if ($this->Auth->user()) {
             $this->Flash->error('Vous êtes déjà connecté');

@@ -4,7 +4,6 @@ namespace App\Controller\Admin;
 
 use App\Model\Table\TicketsTable;
 use Cake\Event\Event;
-use Cake\ORM\TableRegistry;
 
 /**
  * Class AppController
@@ -14,12 +13,17 @@ use Cake\ORM\TableRegistry;
  */
 class AppController extends \App\Controller\AppController
 {
-    public  $helpers = [
+    /**
+     * @var array  the page helpers; all loaded by default
+     */
+    public $helpers = [
         'DataTables' => [
             'className' => 'DataTables.DataTables'
         ]
     ];
 
+    /* = Hooks
+     * =========================================================== */
     public function beforeFilter(Event $event)
     {
         $this->loadComponent('Auth', [
@@ -32,10 +36,9 @@ class AppController extends \App\Controller\AppController
                 ]
             ]
         ]);
+        $this->loadModel('Tickets');
 
         $this->viewBuilder()->layout('admin');
-
-        $this->Tickets = TableRegistry::get('Tickets');
         $this->set([
             'stats' => [
                 'tickets' => [
