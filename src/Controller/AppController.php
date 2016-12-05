@@ -1,16 +1,11 @@
 <?php
 /**
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * beminimalist.fr website
  *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
+ * Private project
  *
- * @copyright Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link      http://cakephp.org CakePHP(tm) Project
- * @since     0.2.9
- * @license   http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Mathieu Bour
+ * @link      https://beminimalist.fr
  */
 namespace App\Controller;
 
@@ -23,25 +18,25 @@ use DataTables\Controller\Component\DataTablesComponent;
 /**
  * Application Controller
  *
- * Add your application-wide methods in the class below, your controllers
- * will inherit them.
- *
  * @property SettingsComponent $Settings
  * @property DataTablesComponent $DataTables
  */
 class AppController extends Controller
 {
+    /**
+     * @var array the page helpers; all loaded by default
+     */
     public $helpers = [
-        'Html' => [
+        'Html'       => [
             'className' => 'Bootstrap.BootstrapHtml'
         ],
-        'Form' => [
+        'Form'       => [
             'className' => 'Bootstrap.BootstrapForm'
         ],
-        'Paginator' => [
+        'Paginator'  => [
             'className' => 'Bootstrap.BootstrapPaginator'
         ],
-        'Modal' => [
+        'Modal'      => [
             'className' => 'Bootstrap.BootstrapModal'
         ],
         'Barcodes',
@@ -94,24 +89,36 @@ class AppController extends Controller
      */
     public function beforeRender(Event $event)
     {
-        if (!array_key_exists('_serialize', $this->viewVars) &&
-            in_array($this->response->type(), ['application/json', 'application/xml'])
+        if (!array_key_exists('_serialize', $this->viewVars) && in_array($this->response->type(), [
+                'application/json',
+                'application/xml'
+            ])
         ) {
             $this->set('_serialize', true);
         }
     }
 
     /**
-     * Get a view var
-     * @param $key
-     * @return null
+     * Get a view var (return null if the viewVar does not exist)
+     * @param string $key the viewVar key
+     * @return mixed
      */
-    public function get($key)
+    public function get(string $key): mixed
     {
         if (!empty($this->viewVars[$key])) {
             return $this->viewVars[$key];
         } else {
             return null;
         }
+    }
+
+    /**
+     * Set the page title (accessible in viewVars)
+     * @param string $title the page title
+     * @return void
+     */
+    public function setTitle(string $title): void
+    {
+        $this->set(compact('title'));
     }
 }

@@ -7,26 +7,36 @@ use Cake\ORM\TableRegistry;
 
 /**
  * Class SettingsComponent
+ * Used to read/write settings
+ *
+ * @author Mathieu Bour
+ *
  * @package App\Controller\Component
  *
+ * @property array $cached the current cached settings
  * @property AppController $Controller
  * @property \App\Model\Table\SettingsTable $SettingsTable
  */
 class SettingsComponent extends Component
 {
-    public $cached;
-
     public function initialize(array $config)
     {
-        $this->Controller = $this->_registry->getController();
-        $this->SettingsTable = TableRegistry::get('Settings');
+        $config = array_merge_recursive($config, [
+            'table' => 'Settings'
+        ]);
+        //$this->Controller = $this->_registry->getController(); // Not needed
+        $this->SettingsTable = TableRegistry::get($config['table']);
 
-        $this->reload();
+        $this->reload(); // Reload settings
 
         parent::initialize($config);
     }
 
-    public function reload()
+    /**
+     * Reload the cached settings configuration
+     * @return void
+     */
+    public function reload(): void
     {
         $this->cached = $this->SettingsTable->find('list', [
             'keyField' => 'key',
@@ -38,17 +48,24 @@ class SettingsComponent extends Component
         }
     }
 
-    public function read($key)
-    {
-        return $this->readOrFail($key, null);
-    }
-
-    public function readOrFail($key, $failValue)
+    /**
+     * Read a entry in the cached configuration
+     * @param string $key the settings key
+     * @param mixed $failValue the value to return in case of fail (entry does not exist)
+     * @return mixed|null
+     */
+    public function read($key, $failValue = null): mixed
     {
         return !empty($this->cached[$key]) ? $this->cached[$key] : $failValue;
     }
 
-    public function write($key, $value)
+    /**
+     * Write a entry in the configuration
+     * @param string $key the settings key
+     * @param mixed $value the value to write; serialized before saving
+     * @return bool the save result
+     */
+    public function write($key, $value): bool
     {
         $setting = $this->SettingsTable->find('all')->where(['key' => $key])->first();
 
@@ -57,8 +74,11 @@ class SettingsComponent extends Component
         } else {
             $setting->value = serialize($value);
         }
-        $this->SettingsTable->save($setting);
 
-        $this->reload();
+        $result = $this->SettingsTable->save($setting);
+
+        $this->reload(); // Reload settings
+
+        return $result;
     }
 }
