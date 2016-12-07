@@ -1,9 +1,12 @@
 <header class="header">
-    <h1>Minimalist</h1>
+    <div class="header-left">
+        <h2 class="header-title"><i class="fa fa-bars sidebar-switcher"></i> <?= $title; ?></h2>
+    </div>
 
-    <div class="pull-right">
-        <span>Connecté en tant que <?= $session->read('Auth.User.firstname'); ?> <?= $session->read('Auth.User.lastname'); ?></span>
-
-        <?= $this->Html->link('Déconnexion', ['controller' => 'Users', 'action' => 'logout'], ['class' => 'btn btn-danger']); ?>
+    <div class="header-right">
+        <ul>
+            <li><a href="#">Connecté en tant que <?= $session->read('Auth.User.firstname'); ?> <?= $session->read('Auth.User.lastname'); ?></a></li>
+            <li><?= $this->Html->link('<i class="fa fa-power-off"></i></li>', ['controller' => 'Users', 'action' => 'logout'], ['escape' => false]); ?>
+        </ul>
     </div>
 </header>

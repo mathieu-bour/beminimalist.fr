@@ -2,9 +2,36 @@
 namespace App\Controller\Admin;
 
 use App\Model\Entity\Ticket;
+use Cake\I18n\Time;
 
 class PagesController extends AppController
 {
+
+    public function dashboard()
+    {
+        $this->setTitle('Tableau de bord');
+
+        $this->set([
+            'stats' => array_merge_recursive($this->viewVars['stats'], [
+                'tickets' => [
+                    'printed' => $this->Tickets->find('all')->where(['paid' => true, 'state' => 'printed'])->count(),
+                    'paid_paypal' => $this->Tickets->find('all')->where(['paid' => true, 'type' => 'paypal'])->count(),
+                    'paid_perm' => $this->Tickets->find('all')->where(['paid' => true, 'type' => 'perm'])->count()
+                ]
+            ]),
+            'charts' => [
+                'map' => $this->_getTicketsCoordinates(),
+                'sales' => $this->_getTicketsSales(new Time($this->Settings->read('book_opening_date')), new Time()),
+                'gender' => $this->_getTicketsGender(),
+                'majority' => $this->_getTicketsMajority(),
+                'referentSales' => $this->_getTicketsReferentSales(),
+                'types' => $this->_getTicketTypes()
+            ]
+        ]);
+    }
+
+    /* = Charts
+     * =========================================================== */
     private function _getTicketsCoordinates()
     {
         /** @var Ticket[] $tickets */
@@ -29,42 +56,125 @@ class PagesController extends AppController
         return $coordinates;
     }
 
-    public function dashboard()
+    /**
+     * Get well formatted data for Morris.js chart
+     * @param Time $start
+     * @param Time $end
+     * @return array
+     */
+    private function _getTicketsSales(Time $start, Time $end): array
     {
-        /*$i = 15;
-        $range = 50;
+        $startIterator = $start->copy();
+        $endIterator = $start->copy();
+        $endIterator->addDay();
 
-        $this->loadModel('Tickets');
-        $tickets = $this->Tickets->find('all')->where(['id >=' => $i * $range, 'id < ' => ($i + 1) * $range]);
+        $data = [];
 
-        foreach ($tickets as $ticket) {
-            $prepAddr = str_replace(' ', '+', $ticket->address . ' ' . $ticket->zip_code . ' ' . $ticket->city);
-            $geocode = file_get_contents('https://maps.google.com/maps/api/geocode/json?address=' . $prepAddr . '&sensor=false&key=AIzaSyDDsLpHUkMF5buf-9tGWOTk1qdzmQblZaY');
-            $output = json_decode($geocode);
+        while ($startIterator < $end) {
+            $data[] = [
+                'date' => $startIterator->format('Y-m-d'),
+                'book' => $this->Tickets->find('all')
+                    ->where([
+                        'created >' => $start,
+                        'created <' => $endIterator
+                    ])->count(),
+                'paypal' => $this->Tickets->find('all')
+                    ->where([
+                        'created >' => $start,
+                        'created <' => $endIterator,
+                        'paid' => true,
+                        'type' => 'paypal'
+                    ])->count(),
+                'perm' => $this->Tickets->find('all')
+                    ->where([
+                        'created >' => $start,
+                        'created <' => $endIterator,
+                        'paid' => true,
+                        'type' => 'perm'
+                    ])->count()
+            ];
 
-            debug($output->status);
-
-            if(!empty($output->results)) {
-                $ticket->latitude = $output->results[0]->geometry->location->lat;
-                $ticket->longitude = $output->results[0]->geometry->location->lng;
-            } else {
-                $ticket->latitude = $ticket->longitude = null;
-            }
-
-            $this->Tickets->save($ticket);
+            $startIterator->addDay();
+            $endIterator->addDay();
         }
 
-        die();*/
+        return $data;
+    }
 
-        $this->set([
-            'stats' => array_merge_recursive($this->viewVars['stats'], [
-                'tickets' => [
-                    'printed' => $this->Tickets->find('all')->where(['paid' => true, 'state' => 'printed'])->count()
-                ]
-            ]),
-            'charts' => [
-                'map' => $this->_getTicketsCoordinates()
+    /**
+     * Get well formatted data for Morris.js chart
+     * @return array
+     */
+    private function _getTicketsGender()
+    {
+        return [
+            [
+                'label' => 'Hommes',
+                'value' => $this->Tickets->find('all')->where(['paid' => 1, 'gender' => 'M'])->count()
+            ], [
+                'label' => 'Femmes',
+                'value' => $this->Tickets->find('all')->where(['paid' => 1, 'gender' => 'F'])->count()
             ]
-        ]);
+        ];
+    }
+
+    /**
+     * Get well formatted data for Morris.js chart
+     * @return array
+     */
+    private function _getTicketsMajority()
+    {
+        $majority = (new Time($this->Settings->read('event_date')))->addYears(-18);
+
+        return [
+            [
+                'label' => 'Mineurs',
+                'value' => $this->Tickets->find('all')->where(['birthdate >' => $majority])->count()
+            ], [
+                'label' => 'Majeurs',
+                'value' => $this->Tickets->find('all')->where(['birthdate <' => $majority])->count()
+            ]
+        ];
+    }
+
+    /**
+     * Get well formatted data for Morris.js chart
+     * @return array
+     */
+    private function _getTicketsReferentSales()
+    {
+        $this->loadModel('Users');
+        $users = $this->Users->find('all')->toArray();
+        $data = [];
+
+        foreach ($users as $user) {
+            $count = $this->Tickets->find('all')->where(['paid' => 1, 'user_code' => $user->code])->count();
+
+            if($count > 0) {
+                $data[] = [
+                    'label' => $user->firstname . ' ' . $user->lastname,
+                    'value' => $this->Tickets->find('all')->where(['paid' => 1, 'user_code' => $user->code])->count()
+                ];
+            }
+        }
+
+        return $data;
+    }
+
+    /**
+     * Get well formatted data for Morris.js chart
+     * @return array
+     */
+    private function _getTicketTypes()
+    {
+        return [
+            [
+                'label' => 'PayPal',
+                'value' => $this->Tickets->find('all')->where(['paid' => 1, 'type' => 'paypal'])->count()
+            ], [
+                'label' => 'Permanence',
+                'value' => $this->Tickets->find('all')->where(['paid' => 1, 'type' => 'perm'])->count()
+            ]
+        ];
     }
 }

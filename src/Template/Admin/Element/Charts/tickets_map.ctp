@@ -4,15 +4,15 @@
     </div>
 
     <div class="panel-body">
-        <div id="tickets-map" style="height: 800px;"></div>
+        <div id="tickets-map" style="height: 300px;"></div>
     </div>
 </div>
 
-<?php $this->start('script'); ?>
+<?php $this->append('script'); ?>
 <script type="text/javascript">
     function initMap() {
         var ticketsMap = new google.maps.Map(document.getElementById('tickets-map'), {
-            center: {lat: 48.7096442, lng: 5.1432836},
+            center: {lat: 49.133333, lng: 6.166667},
             zoom: 8
         });
 

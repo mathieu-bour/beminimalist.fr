@@ -25,10 +25,35 @@ class TicketsController extends AppController
             ]
         ]);
 
+        $this->setTitle('Tous les tickets');
+
         $this->set([
             'data' => $data,
             '_serialize' => array_merge($this->viewVars['_serialize'], ['data'])
         ]);
+    }
+
+    /**
+     * Edit method
+     * @param null|int $id
+     * @return \Cake\Network\Response|null
+     */
+    public function edit($id = null)
+    {
+        $ticket = $this->Tickets->get($id);
+
+        if ($this->request->is(['post', 'put'])) {
+            $this->Tickets->patchEntity($ticket, $this->request->data);
+            if ($this->Tickets->save($ticket)) {
+                $this->Flash->success('Ticket mis à jour');
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error('Erreur lors de la mise à jour de l\'article');
+        }
+
+        $this->setTitle('Édition de ticket');
+
+        $this->set('ticket', $ticket);
     }
 
     /**
@@ -43,7 +68,9 @@ class TicketsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $ticket = $this->Tickets->get($id);
         if ($this->Tickets->delete($ticket)) {
-            $this->Flash->success('Le ticket a bien été suppprimé');
+            if(!$this->request->is('json')) {
+                $this->Flash->success('Le ticket a bien été suppprimé');
+            }
         } else {
             $this->Flash->error('Erreur lors de la suppression du code d\'accès');
         }
@@ -94,8 +121,7 @@ class TicketsController extends AppController
                         ]);
                     }
             }
-        }
-        else if ($this->request->params['_ext'] == 'pdf') { // PDF generation
+        } else if ($this->request->params['_ext'] == 'pdf') { // PDF generation
             $codes = explode(',', $this->request->query['codes']);
 
             if (!empty($codes)) {
@@ -109,5 +135,7 @@ class TicketsController extends AppController
                 $this->set(compact('tickets'));
             }
         }
+
+        $this->setTitle('Impression de tickets');
     }
 }

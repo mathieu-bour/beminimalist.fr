@@ -1,5 +1,16 @@
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-4">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3>To-Do List</h3>
+            </div>
+            <div class="panel-body">
+
+            </div>
+        </div>
+
+        <?= $this->element('Charts/tickets_map', compact('charts')); ?>
+
         <div class="panel">
             <div class="panel-heading">
                 <h3>Billeterie :
@@ -14,7 +25,7 @@
                 <?= $this->Form->create(null, ['url' => ['controller' => 'Settings', 'action' => 'update']]); ?>
                 <?= $this->Form->input('prebook_opening_date', [
                     'label' => 'Ouverture aux préventes',
-                    'value' => $settings->read('opening_early'),
+                    'value' => $settings->read('prebook_opening_date'),
                     'append' => [
                         $this->Form->button('Valider', ['class' => 'btn-info'])
                     ]
@@ -24,7 +35,7 @@
                 <?= $this->Form->create(null, ['url' => ['controller' => 'Settings', 'action' => 'update']]); ?>
                 <?= $this->Form->input('book_opening_date', [
                     'label' => 'Ouverture générale',
-                    'value' => $settings->read('opening_global'),
+                    'value' => $settings->read('book_opening_date'),
                     'append' => [
                         $this->Form->button('Valider', ['class' => 'btn-info'])
                     ]
@@ -51,10 +62,14 @@
             </div>
         </div>
     </div>
-</div>
 
-<div class="row">
-    <div class="col-md-12">
-        <?= $this->element('Charts/tickets_map', compact('charts')); ?>
+    <div class="col-md-8">
+        <?= $this->element('Charts/tickets_sales', ['data' => $charts['sales']]); ?>
+        <?= $this->element('Charts/tickets_demography', [
+            'genderData' => $charts['gender'],
+            'majorityData' => $charts['majority'],
+            'referentsSalesData' => $charts['referentSales'],
+            'typesData' => $charts['types']
+        ]); ?>
     </div>
 </div>

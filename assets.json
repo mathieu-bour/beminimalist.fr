@@ -41,7 +41,11 @@
       "/css/common/layouts.css",
       "/css/common/fonts.css",
       "/css/common/bootstrap-theme.css",
-      "/css/admin/main.css"
+      "/css/admin/header.css",
+      "/css/admin/sidebar.css",
+      "/plugins/morris.js/morris.css",
+      "/css/admin/main.css",
+      "/css/admin/mobile.css"
     ],
     "css_replace": {
       "../fonts/glyphicons-halflings-regular": "../fonts/glyphicons-halflings-regular/glyphicons-halflings-regular",
@@ -56,6 +60,8 @@
       "/plugins/datatables.net-bs/js/dataTables.bootstrap.js",
       "/plugins/datatables.net-responsive/js/dataTables.responsive.js",
       "/plugins/datatables.net-responsive-bs/js/responsive.bootstrap.js",
+      "/plugins/raphael/raphael.js",
+      "/plugins/morris.js/morris.js",
       "/js/admin/main.js"
     ]
   },

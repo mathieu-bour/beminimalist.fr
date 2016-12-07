@@ -6,10 +6,8 @@
         <?= $this->element('sidebar'); ?>
 
         <div class="content">
-            <div class="container-fluid">
-                <?= $this->Flash->render(); ?>
-                <?= $this->fetch('content'); ?>
-            </div>
+            <?= $this->Flash->render(); ?>
+            <?= $this->fetch('content'); ?>
         </div>
     </div>
 </div>

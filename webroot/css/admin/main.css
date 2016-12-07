@@ -14,56 +14,26 @@ body {
     position: relative;
     background-color: #eeeeee;
 }
-.header {
-    position: fixed;
-    z-index: 5;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    background-color: #ffffff;
-    box-shadow: 0 5px 10px 0 rgba(200, 200, 200, 0.75);
-}
-.header h1 {
-    display: inline-block;
-    margin: 0;
-    padding: 0 30px;
-    font-family: 'Panama', Helvetica, sans-serif;
-    line-height: 60px;
-}
-.header .pull-right {
-    line-height: 60px;
-    padding: 0 30px;
-}
-.header .pull-right span {
-     margin-right: 20px;
-}
 
-.sidebar {
-    position: fixed;
-    z-index: 4;
-    top: 60px;
-    left: 0;
-    bottom: 0;
-    width: 300px;
-    background-color: #ffffff;
-    box-shadow: 5px 0 10px 0 rgba(200, 200, 200, 0.75);
-}
-.sidebar ul {
-    margin: 30px 0 0 0;
-    padding: 0;
-    list-style: none;
-}
-.sidebar ul li a {
-    display: block;
-    padding: 13px 30px;
-    line-height: 14px;
-}
 
 .content {
     position: absolute;
     left: 300px;
-    top: 60px;
+    top: 70px;
     right: 0;
-    padding: 30px;
+    padding: 20px;
+}
+
+.panel-heading > h3 {
+    margin: 5px 0;
+}
+
+/* = Sidebar hidden
+ * =========================================================== */
+.sidebar-hidden .content {
+    left: 0;
+}
+
+.dataTable td {
+    vertical-align: middle;
 }

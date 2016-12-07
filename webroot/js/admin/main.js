@@ -1,4 +1,10 @@
 ;(function ($, window, document) {
+    /* = Sidebar
+     * =========================================================== */
+    $('.sidebar-switcher').on('click', function() {
+        $('body').toggleClass('sidebar-hidden');
+    });
+
     /* = Printing wizard
      * =========================================================== */
     var $validateBtn = $('#ticket-print-validate-btn');

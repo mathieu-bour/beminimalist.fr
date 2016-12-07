@@ -1,0 +1,50 @@
+.header {
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 300px;
+    right: 0;
+    height: 70px;
+    background-color: #2196f3;
+}
+    .header-left {
+        float: left;
+        padding: 0 20px;
+    }
+        .header-title {
+            margin: 0;
+            line-height: 70px;
+            color: #fff;
+        }
+            .header-title > .fa {
+                margin-right: 5px;
+                cursor: pointer;
+            }
+
+    .header-right {
+        float: right;
+    }
+        .header-right > ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+            .header-right > ul > li {
+                float: left;
+                line-height: 70px;
+                border-left: solid 1px #bbdefb;
+            }
+                .header-right > ul > li > a {
+                    display: block;
+                    padding: 0 28px;
+                    color: #fff;
+                }
+                .header-right > ul > li > a:hover {
+                    color: #fff;
+                }
+
+/* = Sidebar hidden
+ * =========================================================== */
+.sidebar-hidden .header {
+    left: 0;
+}

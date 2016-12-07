@@ -1,0 +1,30 @@
+@media (max-width: 768px) {
+    .content {
+        position: static;
+    }
+    .header {
+        position: static;
+    }
+        .header-left {
+            float: none;
+        }
+        .header-right {
+            display: none;
+        }
+
+    .sidebar {
+        top: 70px;
+        left: -100%;
+        width: 100%;
+    }
+        .sidebar-header {
+            display: none;
+        }
+        .sidebar-content {
+            padding: 0;
+        }
+    .sidebar-hidden .sidebar {
+        display: block;
+        left: 0;
+    }
+}

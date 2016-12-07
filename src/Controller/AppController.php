@@ -35,6 +35,8 @@ class AppController extends Controller
         ]
     ];
 
+    /* = Hooks
+     * =========================================================== */
     /**
      * Initialization
      *
@@ -50,10 +52,9 @@ class AppController extends Controller
         $this->loadComponent('DataTables.DataTables');
 
         $this->set('settings', $this->Settings);
+        $this->setTitle('No title set');
     }
 
-    /* = Hooks
-     * =========================================================== */
     /**
      * Before filter hook
      *
@@ -62,7 +63,6 @@ class AppController extends Controller
      */
     public function beforeFilter(Event $event)
     {
-
         $this->Perms = TableRegistry::get('Perms');
         $perms = $this->paginate($this->Perms);
 
