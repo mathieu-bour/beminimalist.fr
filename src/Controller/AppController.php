@@ -132,4 +132,22 @@ class AppController extends Controller
     {
         $this->set(compact('title'));
     }
+
+    /* = REST API
+     * =========================================================== */
+    /**
+     * Build JSON response for REST API
+     * @param array $response
+     */
+    public function json(array $response) {
+        $response = array_merge([
+            'message' => null,
+            'url' => $this->request->here(),
+            'code' => 200,
+            'data' => null,
+            '_serialize' => ['message', 'url', 'code', 'data']
+        ], $response);
+
+        $this->set($response);
+    }
 }

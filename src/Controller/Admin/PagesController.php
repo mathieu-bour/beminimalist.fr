@@ -75,6 +75,7 @@ class PagesController extends AppController
                 'date' => $startIterator->format('Y-m-d'),
                 'book' => $this->Tickets->find('all')
                     ->where([
+                        'paid' => true,
                         'created >' => $start,
                         'created <' => $endIterator
                     ])->count(),
@@ -110,10 +111,18 @@ class PagesController extends AppController
         return [
             [
                 'label' => 'Hommes',
-                'value' => $this->Tickets->find('all')->where(['paid' => 1, 'gender' => 'M'])->count()
+                'value' => $this->Tickets->find('all')
+                    ->where([
+                        'paid' => 1,
+                        'gender' => 'M'
+                    ])->count()
             ], [
                 'label' => 'Femmes',
-                'value' => $this->Tickets->find('all')->where(['paid' => 1, 'gender' => 'F'])->count()
+                'value' => $this->Tickets->find('all')
+                    ->where([
+                        'paid' => 1,
+                        'gender' => 'F'
+                    ])->count()
             ]
         ];
     }
@@ -129,10 +138,20 @@ class PagesController extends AppController
         return [
             [
                 'label' => 'Mineurs',
-                'value' => $this->Tickets->find('all')->where(['birthdate >' => $majority])->count()
+                'value' => $this->Tickets->find('all')
+                    ->where([
+                        'paid' => 1,
+                        'birthdate >' => $majority
+                    ])
+                    ->count()
             ], [
                 'label' => 'Majeurs',
-                'value' => $this->Tickets->find('all')->where(['birthdate <' => $majority])->count()
+                'value' => $this->Tickets->find('all')
+                    ->where([
+                        'paid' => 1,
+                        'birthdate <' => $majority
+                    ])
+                    ->count()
             ]
         ];
     }
@@ -170,10 +189,20 @@ class PagesController extends AppController
         return [
             [
                 'label' => 'PayPal',
-                'value' => $this->Tickets->find('all')->where(['paid' => 1, 'type' => 'paypal'])->count()
+                'value' => $this->Tickets->find('all')
+                    ->where([
+                        'paid' => 1,
+                        'type' => 'paypal'
+                    ])
+                    ->count()
             ], [
                 'label' => 'Permanence',
-                'value' => $this->Tickets->find('all')->where(['paid' => 1, 'type' => 'perm'])->count()
+                'value' => $this->Tickets->find('all')
+                    ->where([
+                        'paid' => 1,
+                        'type' => 'perm'
+                    ])
+                    ->count()
             ]
         ];
     }

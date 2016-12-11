@@ -45,25 +45,31 @@
 
 <?php $this->append('script'); ?>
 <script>
+    var colors = ['#428bca', '#5cb85c', '#5bc0de', '#f0ad4e', '#d9534f'];
+
     Morris.Donut({
         element: 'tickets-gender',
         resize: true,
-        data: <?= json_encode($genderData) ?>
+        data: <?= json_encode($genderData) ?>,
+        colors: colors
     });
     Morris.Donut({
         element: 'tickets-referents-sales',
         resize: true,
-        data: <?= json_encode($referentsSalesData) ?>
+        data: <?= json_encode($referentsSalesData) ?>,
+        colors: colors
     });
     Morris.Donut({
         element: 'tickets-majority',
         resize: true,
-        data: <?= json_encode($majorityData) ?>
+        data: <?= json_encode($majorityData) ?>,
+        colors: colors
     });
     Morris.Donut({
         element: 'tickets-types',
         resize: true,
-        data: <?= json_encode($typesData) ?>
+        data: <?= json_encode($typesData) ?>,
+        colors: colors
     });
 </script>
 <?php $this->end(); ?>

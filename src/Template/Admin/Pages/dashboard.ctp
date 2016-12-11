@@ -5,7 +5,11 @@
                 <h3>To-Do List</h3>
             </div>
             <div class="panel-body">
-
+                <ul>
+                    <?php if ($stats['tickets']['pending'] > 0): ?>
+                        <li><?= $stats['tickets']['pending'] ?> tickets à imprimer</li>
+                    <?php endif; ?>
+                </ul>
             </div>
         </div>
 

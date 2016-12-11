@@ -1,6 +1,8 @@
 <?php
 namespace App\Controller\Admin;
 
+use Cake\I18n\Time;
+
 /**
  * Tickets Admin Controller
  *
@@ -34,27 +36,54 @@ class TicketsController extends AppController
     }
 
     /**
-     * Edit method
-     * @param null|int $id
+     * View method
+     * @param int $id
      * @return \Cake\Network\Response|null
      */
-    public function edit($id = null)
+    public function view($id)
     {
-        $ticket = $this->Tickets->get($id);
-
-        if ($this->request->is(['post', 'put'])) {
-            $this->Tickets->patchEntity($ticket, $this->request->data);
-            if ($this->Tickets->save($ticket)) {
-                $this->Flash->success('Ticket mis à jour');
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error('Erreur lors de la mise à jour de l\'article');
+        // REST API handler
+        if ($this->request->is('json')) {
+            return $this->_view($id);
         }
 
-        $this->setTitle('Édition de ticket');
-
-        $this->set('ticket', $ticket);
+        return null;
     }
+
+    /**
+     * Edit method
+     * @param int $id
+     * @return \Cake\Network\Response|null
+     */
+    public function edit($id)
+    {
+        // REST API handler
+        if ($this->request->is('json')) {
+            return $this->_edit($id);
+        }
+
+        $ticket = $this->Tickets->get($id);
+
+        if (!$this->request->is(['post'])) {
+            // GET request from admin panel
+            $this->setTitle('Édition de ticket');
+            $this->set('ticket', $ticket);
+
+            return null;
+        } else {
+            // POST request
+            $this->Tickets->patchEntity($ticket, $this->request->data);
+
+            if ($this->Tickets->save($ticket)) {
+                $this->Flash->success('Ticket mis à jour');
+            } else {
+                $this->Flash->error('Erreur lors de la mise à jour de l\'article');
+            }
+
+            return $this->redirect(['action' => 'index']);
+        }
+    }
+
 
     /**
      * Delete method
@@ -68,7 +97,7 @@ class TicketsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $ticket = $this->Tickets->get($id);
         if ($this->Tickets->delete($ticket)) {
-            if(!$this->request->is('json')) {
+            if (!$this->request->is('json')) {
                 $this->Flash->success('Le ticket a bien été suppprimé');
             }
         } else {
@@ -76,6 +105,27 @@ class TicketsController extends AppController
         }
 
         $this->redirect(['action' => 'index']);
+    }
+
+
+    /**
+     * Validate a ticket
+     * @param $id
+     */
+    public function validate($id)
+    {
+        $this->request->data['validated'] = Time::now();
+        $this->edit($id);
+    }
+
+    /**
+     * Unvalidate a ticket
+     * @param $id
+     */
+    public function unvalidate($id)
+    {
+        $this->request->data['validated'] = null;
+        $this->edit($id);
     }
 
     /**
@@ -137,5 +187,49 @@ class TicketsController extends AppController
         }
 
         $this->setTitle('Impression de tickets');
+    }
+
+    /* = REST API
+     * =========================================================== */
+    private function _add()
+    {
+
+    }
+
+    private function _view($id)
+    {
+        $this->request->allowMethod(['get']);
+
+        $ticket = $this->Tickets->get($id);
+
+        return $this->json([
+            'data' => [$ticket]
+        ]);
+    }
+
+    private function _edit($id)
+    {
+        $this->request->allowMethod(['post', 'put']);
+
+        $ticket = $this->Tickets->get($id);
+        $this->Tickets->patchEntity($ticket, $this->request->data);
+
+        if ($this->Tickets->save($ticket)) {
+            return $this->json([
+                'message' => 'Ticket mis à jour',
+                'data' => $ticket
+            ]);
+        } else {
+            return $this->json([
+                'message' => 'Erreur lors de la mise à jour du ticket',
+                'data' => $ticket,
+                'code' => 500
+            ]);
+        }
+    }
+
+    private function _delete()
+    {
+
     }
 }

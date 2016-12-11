@@ -9,6 +9,8 @@
 
 <?php $this->append('script'); ?>
 <script>
+    var colors = ['#428bca', '#5cb85c', '#5bc0de', '#f0ad4e', '#d9534f'];
+
     Morris.Line({
         element: 'book-line',
         resize: true,
@@ -16,6 +18,8 @@
         xkey: 'date',
         ykeys: ['book', 'paypal', 'perm'],
         labels: ['Réservations', 'Paiements PayPal', 'Paiements permanences'],
+        lineColors: colors,
+        pointFillColors: colors,
         dateFormat: function (x) {
             return 'Au ' + moment(x).format('DD/MM');
         },
