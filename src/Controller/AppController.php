@@ -8,9 +8,8 @@ use Cake\ORM\TableRegistry;
 use DataTables\Controller\Component\DataTablesComponent;
 
 /**
- * Application Controller
- *
  * @author Mathieu Bour <mathieu.tin.bour@gmail.com>
+ * @package App\Controller
  *
  * @property SettingsComponent $Settings
  * @property DataTablesComponent $DataTables
@@ -139,8 +138,10 @@ class AppController extends Controller
      * Build JSON response for REST API
      * @param array $response
      */
-    public function json(array $response) {
-        $response = array_merge([
+    public function json(array $response, $deep = false) {
+        $merge = $deep ? 'array_merge_deep': 'array_merge';
+
+        $response = $merge([
             'message' => null,
             'url' => $this->request->here(),
             'code' => 200,

@@ -111,7 +111,7 @@ class UsersController extends AppController
         if(!$user) {
             return $this->json([
                'message' => 'Identifiants incorrects',
-               'code' => 403
+               'code' => 401
             ]);
         } else {
             $this->Auth->setUser($user);
