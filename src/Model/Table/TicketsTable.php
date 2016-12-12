@@ -2,6 +2,7 @@
 namespace App\Model\Table;
 
 use App\Model\Entity\Ticket;
+use Cake\Datasource\EntityInterface;
 use Cake\Event\Event;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -13,13 +14,12 @@ use Http\Adapter\Guzzle6\Client;
 /**
  * Tickets Model
  *
- * @method \App\Model\Entity\Ticket get($primaryKey, $options = [])
- * @method \App\Model\Entity\Ticket newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Ticket[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Ticket|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Ticket patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Ticket[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Ticket findOrCreate($search, callable $callback = null)
+ * @method Ticket newEntity($data = null, array $options = [])
+ * @method Ticket[] newEntities(array $data, array $options = [])
+ * @method Ticket|bool save(EntityInterface $entity, $options = [])
+ * @method Ticket patchEntity(EntityInterface $entity, array $data, array $options = [])
+ * @method Ticket[] patchEntities($entities, array $data, array $options = [])
+ * @method Ticket findOrCreate($search, callable $callback = null, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
@@ -91,6 +91,21 @@ class TicketsTable extends Table
             ->allowEmpty('created');
 
         return $validator;
+    }
+
+    /**
+     * Get a Ticket by id or barcode if $primaryKey length is 9
+     * @param mixed $primaryKey
+     * @param array $options
+     * @return mixed
+     */
+    public function get($primaryKey, $options = []) {
+        // This is a barcode
+        if(strlen($primaryKey) == 9) {
+            return $this->find('all')->where(['barcode' => $primaryKey])->first();
+        } else {
+            return parent::get($primaryKey, $options);
+        }
     }
 
     /* = Callbacks
