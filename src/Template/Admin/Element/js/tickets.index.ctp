@@ -95,6 +95,14 @@ $this->start('script'); ?>
                     }
                 },
                 {
+                    "title": "Date de réservation",
+                    "name": "Tickets.created",
+                    "data": "created",
+                    "render": function (data, type, row) {
+                        return moment(row.created).format('DD/MM/YYYY HH:mm:ss')
+                    }
+                },
+                {
                     "title": "Actions",
                     "render": function (data, type, row) {
                         return '<a href="<?= Router::url(['controller' => 'Tickets', 'action' => 'edit']); ?>/' + row.id + '" class="btn btn-xs btn-warning btn-action"><i class="fa fa-fw fa-edit"></i></a>' +

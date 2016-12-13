@@ -2,11 +2,20 @@
 namespace App\Controller\Admin;
 
 use App\Model\Entity\Ticket;
+use App\Model\Table\UsersTable;
 use Cake\I18n\Time;
 
+/**
+ *
+ * @package App\Controller\Admin
+ *
+ * @property UsersTable $Users
+ */
 class PagesController extends AppController
 {
-
+    /**
+     * Dashboard method
+     */
     public function dashboard()
     {
         $this->setTitle('Tableau de bord');
