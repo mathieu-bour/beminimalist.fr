@@ -1,6 +1,6 @@
 <div class="panel">
     <div class="panel-heading">
-        <h3>Revenus estimés</h3>
+        <h3>Tickets payés</h3>
     </div>
     <div class="panel-body">
         <div id="book-line"></div>
@@ -17,7 +17,7 @@
         data: <?= json_encode($data) ?>,
         xkey: 'date',
         ykeys: ['book', 'paypal', 'perm'],
-        labels: ['Réservations', 'Paiements PayPal', 'Paiements permanences'],
+        labels: ['Total', 'PayPal', 'Permanences'],
         lineColors: colors,
         pointFillColors: colors,
         dateFormat: function (x) {
