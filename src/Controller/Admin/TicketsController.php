@@ -64,7 +64,7 @@ class TicketsController extends AppController
 
         $ticket = $this->Tickets->get($id);
 
-        if (!$this->request->is(['post'])) {
+        if (!$this->request->is(['post', 'put'])) {
             // GET request from admin panel
             $this->setTitle('Édition de ticket');
             $this->set('ticket', $ticket);
