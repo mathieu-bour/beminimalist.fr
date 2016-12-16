@@ -46,6 +46,11 @@
                         ['controller' => 'Users', 'action' => 'index']
                     ); ?>
                 </li>
+                <li>
+                    <?= $this->Html->link('Checkpoint',
+                        ['controller' => 'Tickets', 'action' => 'checkpoint']
+                    ); ?>
+                </li>
             </ul>
         </div>
     </div>

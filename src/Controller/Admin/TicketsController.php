@@ -35,6 +35,10 @@ class TicketsController extends AppController
         ]);
     }
 
+    public function checkpoint() {
+
+    }
+
     /**
      * View method
      * @param int $id
