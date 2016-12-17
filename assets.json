@@ -62,6 +62,7 @@
       "/plugins/datatables.net-responsive-bs/js/responsive.bootstrap.js",
       "/plugins/raphael/raphael.js",
       "/plugins/morris.js/morris.js",
+      "/js/admin/checkppoint.js",
       "/js/admin/main.js"
     ]
   },
