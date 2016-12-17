@@ -33,6 +33,7 @@ class TicketsController extends AppController
 
             if($ticket->type == 'perm') {
                 $this->Flash->error('La réservatioon par permanence est indisponible');
+                return null;
             }
 
             if (empty($ticket->errors())) {
