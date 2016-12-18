@@ -31,11 +31,6 @@ class TicketsController extends AppController
             /** @var Ticket $ticket */
             $ticket = $this->Tickets->newEntity($this->request->data);
 
-            if($ticket->type == 'perm') {
-                $this->Flash->error('La réservatioon par permanence est indisponible');
-                return null;
-            }
-
             if (empty($ticket->errors())) {
                 if ($this->Tickets->save($ticket)) {
                     // Send confirmation e-mail
