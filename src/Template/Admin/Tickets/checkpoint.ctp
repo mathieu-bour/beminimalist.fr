@@ -1,9 +1,11 @@
-<canvas></canvas>
+<div class="panel">
+    <div class="panel-heading">
+        <h3>Tickets</h3>
+    </div>
 
-<?php $this->append('script'); ?>
-<?= $this->Html->script([
-    '/plugins/WebCodeCamJS/js/qrcodelib.js',
-    '/plugins/WebCodeCamJS/js/webcodecamjquery.js',
-    '/js/admin/checkpoint.js'
-]); ?>
-<?php $this->end(); ?>
+    <div class="panel-body">
+        <table class="table table-striped table-bordered table-hover dataTable"></table>
+    </div>
+</div>
+
+<?= $this->element('js/tickets.checkpoint'); ?>

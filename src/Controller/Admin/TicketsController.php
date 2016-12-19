@@ -19,24 +19,40 @@ class TicketsController extends AppController
     {
         // Implements Datables
         $data = $this->DataTables->find('Tickets', 'all', [
-            'contain' => [
+            'contain'    => [
                 'Users'
             ],
             'conditions' => [
-                'id >' => 0 // Bug
+                'id >' => 0
+                // Bug
             ]
         ]);
 
         $this->setTitle('Tous les tickets');
 
         $this->set([
-            'data' => $data,
+            'data'       => $data,
             '_serialize' => array_merge($this->viewVars['_serialize'], ['data'])
         ]);
     }
 
-    public function checkpoint() {
+    public function checkpoint()
+    {
+        // Implements Datables
+        $data = $this->DataTables->find('Tickets', 'all', [
+            'conditions' => [
+                'id >' => 0,
+                'paid' => 1
+                // Bug
+            ]
+        ]);
 
+        $this->setTitle('Tous les tickets');
+
+        $this->set([
+            'data'       => $data,
+            '_serialize' => array_merge($this->viewVars['_serialize'], ['data'])
+        ]);
     }
 
     /**
@@ -68,7 +84,11 @@ class TicketsController extends AppController
 
         $ticket = $this->Tickets->get($id);
 
-        if (!$this->request->is(['post', 'put'])) {
+        if (!$this->request->is([
+            'post',
+            'put'
+        ])
+        ) {
             // GET request from admin panel
             $this->setTitle('Édition de ticket');
             $this->set('ticket', $ticket);
@@ -98,7 +118,10 @@ class TicketsController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->request->allowMethod([
+            'post',
+            'delete'
+        ]);
         $ticket = $this->Tickets->get($id);
         if ($this->Tickets->delete($ticket)) {
             if (!$this->request->is('json')) {
@@ -143,19 +166,19 @@ class TicketsController extends AppController
                     // Step 1 - Validate: find the tickets barcodes
                     if (!empty($this->request->data['count'])) {
                         $barcodes = $this->Tickets->find('list', [
-                            'keyField' => 'id',
+                            'keyField'   => 'id',
                             'valueField' => 'barcode',
                             'conditions' => [
-                                'paid' => true,
+                                'paid'  => true,
                                 'state' => 'pending'
                             ],
-                            'limit' => $this->request->data['count']
+                            'limit'      => $this->request->data['count']
                         ])->toArray();
 
                         $barcodesStr = implode(',', array_values($barcodes));
                         $this->set([
                             'barcodesStr' => $barcodesStr,
-                            '_serialize' => ['barcodesStr']
+                            '_serialize'  => ['barcodesStr']
                         ]);
                     }
                     break;
@@ -169,7 +192,10 @@ class TicketsController extends AppController
                         $this->set(array_merge_recursive($this->viewVars['stats']), [
                             'stats' => [
                                 'tickets' => [
-                                    'pending' => $this->Tickets->find('all')->where(['paid' => true, 'state' => 'pending'])->count()
+                                    'pending' => $this->Tickets->find('all')->where([
+                                        'paid'  => true,
+                                        'state' => 'pending'
+                                    ])->count()
                                 ]
                             ]
                         ]);
@@ -213,7 +239,10 @@ class TicketsController extends AppController
 
     private function _edit($id)
     {
-        $this->request->allowMethod(['post', 'put']);
+        $this->request->allowMethod([
+            'post',
+            'put'
+        ]);
 
         $ticket = $this->Tickets->get($id);
         $this->Tickets->patchEntity($ticket, $this->request->data);
@@ -221,13 +250,13 @@ class TicketsController extends AppController
         if ($this->Tickets->save($ticket)) {
             return $this->json([
                 'message' => 'Ticket mis à jour',
-                'data' => $ticket
+                'data'    => $ticket
             ]);
         } else {
             return $this->json([
                 'message' => 'Erreur lors de la mise à jour du ticket',
-                'data' => $ticket,
-                'code' => 500
+                'data'    => $ticket,
+                'code'    => 500
             ]);
         }
     }
