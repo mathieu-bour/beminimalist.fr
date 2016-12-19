@@ -42,7 +42,8 @@ class TicketsController extends AppController
         $data = $this->DataTables->find('Tickets', 'all', [
             'conditions' => [
                 'id >' => 0,
-                'paid' => 1
+                'paid' => 1,
+                'type !=' => 'here'
                 // Bug
             ]
         ]);

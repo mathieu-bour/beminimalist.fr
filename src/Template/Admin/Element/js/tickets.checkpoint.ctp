@@ -74,7 +74,7 @@ $this->start('script'); ?>
                     "searchable": false
                 },
                 {
-                    "title": "Date de naissance",
+                    "title": "Date de validation",
                     "name": "Tickets.validated",
                     "render": function (data, type, row) {
                         if (row.validated != null) {
