@@ -68,7 +68,7 @@ class TicketsTable extends Table
             ->integer('barcode')
             ->allowEmpty('barcode', 'update')
             // type
-            ->inList('type', ['paypal', 'perm'])
+            ->inList('type', ['paypal', 'perm', 'here'])
             // paid
             ->boolean('paid')
             // state

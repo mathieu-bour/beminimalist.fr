@@ -19,7 +19,7 @@ class TicketsController extends AppController
     {
         // Implements Datables
         $data = $this->DataTables->find('Tickets', 'all', [
-            'contain'    => [
+            'contain' => [
                 'Users'
             ],
             'conditions' => [
@@ -31,7 +31,7 @@ class TicketsController extends AppController
         $this->setTitle('Tous les tickets');
 
         $this->set([
-            'data'       => $data,
+            'data' => $data,
             '_serialize' => array_merge($this->viewVars['_serialize'], ['data'])
         ]);
     }
@@ -50,9 +50,23 @@ class TicketsController extends AppController
         $this->setTitle('Tous les tickets');
 
         $this->set([
-            'data'       => $data,
+            'data' => $data,
             '_serialize' => array_merge($this->viewVars['_serialize'], ['data'])
         ]);
+    }
+
+    /**
+     * View method
+     * @return \Cake\Network\Response|null
+     */
+    public function add()
+    {
+        // REST API handler
+        if ($this->request->is('json')) {
+            return $this->_add();
+        }
+
+        return null;
     }
 
     /**
@@ -155,6 +169,17 @@ class TicketsController extends AppController
         $this->edit($id);
     }
 
+    public function stats() {
+        $this->json([
+            'data' => [
+                'validated' => $this->Tickets->find('all')->where(['paid' => 1, 'validated IS NOT' => null])->count(),
+                'paypal' => $this->Tickets->find('all')->where(['paid' => 1, 'validated IS NOT' => null, 'type' => 'paypal'])->count(),
+                'perm' => $this->Tickets->find('all')->where(['paid' => 1, 'validated IS NOT' => null, 'type' => 'perm'])->count(),
+                'here' => $this->Tickets->find('all')->where(['paid' => 1, 'validated IS NOT' => null, 'type' => 'here'])->count(),
+            ]
+        ]);
+    }
+
     /**
      * Index tickets to print
      */
@@ -166,19 +191,19 @@ class TicketsController extends AppController
                     // Step 1 - Validate: find the tickets barcodes
                     if (!empty($this->request->data['count'])) {
                         $barcodes = $this->Tickets->find('list', [
-                            'keyField'   => 'id',
+                            'keyField' => 'id',
                             'valueField' => 'barcode',
                             'conditions' => [
-                                'paid'  => true,
+                                'paid' => true,
                                 'state' => 'pending'
                             ],
-                            'limit'      => $this->request->data['count']
+                            'limit' => $this->request->data['count']
                         ])->toArray();
 
                         $barcodesStr = implode(',', array_values($barcodes));
                         $this->set([
                             'barcodesStr' => $barcodesStr,
-                            '_serialize'  => ['barcodesStr']
+                            '_serialize' => ['barcodesStr']
                         ]);
                     }
                     break;
@@ -193,7 +218,7 @@ class TicketsController extends AppController
                             'stats' => [
                                 'tickets' => [
                                     'pending' => $this->Tickets->find('all')->where([
-                                        'paid'  => true,
+                                        'paid' => true,
                                         'state' => 'pending'
                                     ])->count()
                                 ]
@@ -223,7 +248,14 @@ class TicketsController extends AppController
      * =========================================================== */
     private function _add()
     {
+        $this->request->allowMethod(['post', 'put']);
+        $ticket = $this->Tickets->newEntity($this->request->data);
 
+        if ($this->Tickets->save($ticket)) {
+            $this->json([
+                'data' => [$ticket]
+            ]);
+        }
     }
 
     private function _view($id)
@@ -250,13 +282,13 @@ class TicketsController extends AppController
         if ($this->Tickets->save($ticket)) {
             return $this->json([
                 'message' => 'Ticket mis à jour',
-                'data'    => $ticket
+                'data' => $ticket
             ]);
         } else {
             return $this->json([
                 'message' => 'Erreur lors de la mise à jour du ticket',
-                'data'    => $ticket,
-                'code'    => 500
+                'data' => $ticket,
+                'code' => 500
             ]);
         }
     }

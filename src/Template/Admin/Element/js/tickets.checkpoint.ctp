@@ -3,6 +3,43 @@ use Cake\Routing\Router;
 
 $this->start('script'); ?>
     <script>
+        $('.add-here').on('click', function (e) {
+            e.preventDefault();
+
+            $.post({
+                url: '/admin/tickets/add',
+                dataType: 'json',
+                data: {
+                    firstname: 'surplace',
+                    lastname: 'surplace',
+                    paid: 1,
+                    type: 'here',
+                    gender: 'M',
+                    validated: moment().format('YYYY-MM-DD HH:mm:ss')
+                }
+            }, function(json) {
+                if(json.code == 200) {
+                    reload_stats();
+                }
+            });
+        });
+
+        function reload_stats() {
+            $.get({
+                url: '/admin/tickets/stats',
+                dataType: 'json'
+            }, function(json) {
+                if(json.code == 200) {
+                    $('#tickets-validated-count').text(json.data.validated);
+                    $('#tickets-paypal-count').text(json.data.paypal);
+                    $('#tickets-perm-count').text(json.data.perm);
+                    $('#tickets-here-count').text(json.data.here);
+                }
+            });
+        }
+
+        reload_stats();
+
         var dataTable = $('.dataTable').DataTable({
             "language": {
                 "url": "<?= Router::url("/i18n/dataTables.fr_FR.json"); ?>"
@@ -37,19 +74,13 @@ $this->start('script'); ?>
                     "searchable": false
                 },
                 {
-                    "title": "Type",
-                    "data": "type",
-                    "searchable": false
-                },
-                {
-                    "title": "Payé",
-                    "name": "Tickets.paid",
-                    "data": "paid",
+                    "title": "Date de naissance",
+                    "name": "Tickets.validated",
                     "render": function (data, type, row) {
-                        if (row.paid) {
-                            return '<span class="label label-success"><i class="fa fa-fw fa-check"></i></span>'
+                        if (row.validated != null) {
+                            return moment(row.validated).format('DD/MM/YYYY HH:mm:ss')
                         } else {
-                            return '<span class="label label-danger"><i class="fa fa-fw fa-times"></i></span>'
+                            return 'Non validé'
                         }
                     },
                     "searchable": false
@@ -57,8 +88,11 @@ $this->start('script'); ?>
                 {
                     "title": "Actions",
                     "render": function (data, type, row) {
-                        return '<a href="<?= Router::url(['controller' => 'Tickets', 'action' => 'edit']); ?>/' + row.id + '" class="btn btn-xs btn-warning btn-action"><i class="fa fa-fw fa-edit"></i></a>' +
-                            '<a href="#" class="btn btn-xs btn-danger btn-action btn-delete"><i class="fa fa-fw fa-trash-o"></i></a>';
+                        if (row.validated == null) {
+                            return '<a href="#" class="btn btn-xs btn-success btn-action validate">Valider</a>';
+                        } else {
+                            return '<a href="#" class="btn btn-xs btn-danger btn-action unvalidate">Dévalider</a>';
+                        }
                     },
                     "orderable": false,
                     "searchable": false
@@ -67,6 +101,37 @@ $this->start('script'); ?>
             "order": [[1, 'asc']],
             "scrollX": $(window).width() < 768
         }).on('draw.dt', function () {
+            $('.validate').on('click', function (e) {
+                var $btn = $(this);
+                var $row = $btn.parents('tr');
+                var id = $row.attr('id');
+
+                $.post({
+                    url: '/admin/tickets/validate/' + id,
+                    dataType: 'json'
+                }, function (json) {
+                    if (json.code == 200) {
+                        dataTable.ajax.reload();
+                        reload_stats();
+                    }
+                });
+            });
+
+            $('.unvalidate').on('click', function (e) {
+                var $btn = $(this);
+                var $row = $btn.parents('tr');
+                var id = $row.attr('id');
+
+                $.post({
+                    url: '/admin/tickets/unvalidate/' + id,
+                    dataType: 'json'
+                }, function (json) {
+                    if (json.code == 200) {
+                        dataTable.ajax.reload();
+                        reload_stats();
+                    }
+                });
+            });
         });
     </script>
 <?= $this->end(); ?>
